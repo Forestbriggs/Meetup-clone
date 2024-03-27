@@ -205,7 +205,7 @@ module.exports = {
             const group = await Group.findOne({ where: { name } })
 
             for (let crewInfo of crewMembers) {
-                await group.createUser({ ...crewInfo });
+                await group.createUser({ ...crewInfo }, { validate: true });
             }
         }
     },

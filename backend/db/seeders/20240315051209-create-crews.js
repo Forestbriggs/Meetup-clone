@@ -87,7 +87,7 @@ module.exports = {
             const user = await User.findOne({ where: { username } });
 
             for (let groupInfo of groups) {
-                await Group.create({ ...groupInfo, organizerId: user.id });
+                await Group.create({ ...groupInfo, organizerId: user.id }, { validate: true });
             }
         }
     },

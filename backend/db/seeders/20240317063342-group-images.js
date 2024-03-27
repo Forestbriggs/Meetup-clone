@@ -23,7 +23,7 @@ module.exports = {
             const group = await Group.findOne({ where: { name } });
 
             for (let image of images) {
-                await group.createGroupImage({ ...image });
+                await group.createGroupImage({ ...image }, { validate: true });
             }
         }
     },
