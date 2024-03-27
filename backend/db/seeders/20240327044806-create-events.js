@@ -14,7 +14,59 @@ const groupEvents = [
             startDate: new Date('March 30, 2024 10:00:00').toString(),
             endDate: new Date('March 31, 2024 14:00:00').toString()
         }
-    }
+    },
+    {
+        name: '',
+        address: '',
+        event: {
+            name: '',
+            description: '',
+            type: '',
+            capacity: 0,
+            price: 0,
+            startDate: new Date().toString(),
+            endDate: new Date().toString()
+        }
+    },
+    {
+        name: '',
+        address: '',
+        event: {
+            name: '',
+            description: '',
+            type: '',
+            capacity: 0,
+            price: 0,
+            startDate: new Date().toString(),
+            endDate: new Date().toString()
+        }
+    },
+    {
+        name: '',
+        address: '',
+        event: {
+            name: '',
+            description: '',
+            type: '',
+            capacity: 0,
+            price: 0,
+            startDate: new Date().toString(),
+            endDate: new Date().toString()
+        }
+    },
+    {
+        name: '',
+        address: '',
+        event: {
+            name: '',
+            description: '',
+            type: '',
+            capacity: 0,
+            price: 0,
+            startDate: new Date().toString(),
+            endDate: new Date().toString()
+        }
+    },
 ]
 
 /** @type {import('sequelize-cli').Migration} */
