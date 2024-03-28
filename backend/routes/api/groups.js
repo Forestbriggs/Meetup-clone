@@ -4,6 +4,7 @@ const express = require('express');
 const { getAllGroups, getCurrentUserGroups, getGroupById, createGroup,
     addGroupImage, editGroupById, deleteGroupById, getAllVenuesByGroupId,
     createVenueByGroupId } = require('../../utils/groups.js');
+const { getAllEventsByGroupId } = require('../../utils/events.js');
 const { requireAuth } = require('../../utils/auth.js');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -62,6 +63,8 @@ const validateVenueBody = [
 //* Routes ---------------------------------------------------------------------
 
 router.get('/current', requireAuth, getCurrentUserGroups);
+
+router.get('/:groupId/events', getAllEventsByGroupId);
 
 router.post('/:groupId/images', requireAuth, addGroupImage);
 
