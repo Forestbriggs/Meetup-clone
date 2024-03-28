@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             Event.hasMany(models.EventImage, {
                 foreignKey: 'eventId',
-                onDelete: 'CASCADE',
+                onDelete: "CASCADE",
                 hooks: true
             });
 
@@ -73,7 +73,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false,
             validate: {
-                isAfter: new Date().toString()
+                isAfter: new Date().toISOString()
             }
         },
         endDate: {

@@ -11,8 +11,8 @@ const groupEvents = [
             type: "In person",
             capacity: 1000,
             price: 0,
-            startDate: new Date('March 15, 2025 10:00:00').toString(),
-            endDate: new Date('March 16, 2025 14:00:00').toString()
+            startDate: new Date('March 15, 2025 10:00:00').toISOString(),
+            endDate: new Date('March 16, 2025 14:00:00').toISOString()
         }
     },
     {
@@ -24,8 +24,8 @@ const groupEvents = [
             type: "In person",
             capacity: 50,
             price: 0,
-            startDate: new Date('February 2, 2025 18:00:00').toString(),
-            endDate: new Date('February 3, 2025 10:00:00').toString()
+            startDate: new Date('February 2, 2025 18:00:00').toISOString(),
+            endDate: new Date('February 3, 2025 10:00:00').toISOString()
         }
     },
     {
@@ -37,8 +37,8 @@ const groupEvents = [
             type: "In person",
             capacity: "1000",
             price: 0,
-            startDate: new Date('March 1, 2025 12:00:00').toString(),
-            endDate: new Date('March 3, 2025 16:00:00').toString()
+            startDate: new Date('March 1, 2025 12:00:00').toISOString(),
+            endDate: new Date('March 3, 2025 16:00:00').toISOString()
         }
     },
     {
@@ -50,8 +50,8 @@ const groupEvents = [
             type: 'In person',
             capacity: 25,
             price: 15,
-            startDate: new Date('March 17, 2025 08:00:00').toString(),
-            endDate: new Date('March 17, 2025 12:00:00').toString()
+            startDate: new Date('March 17, 2025 08:00:00').toISOString(),
+            endDate: new Date('March 17, 2025 12:00:00').toISOString()
         }
     },
     {
@@ -62,8 +62,8 @@ const groupEvents = [
             type: 'Online',
             capacity: 10,
             price: 0,
-            startDate: new Date('April 29, 2025 18:00:00').toString(),
-            endDate: new Date('April 29, 2025 20:00:00').toString()
+            startDate: new Date('April 29, 2025 18:00:00').toISOString(),
+            endDate: new Date('April 29, 2025 20:00:00').toISOString()
         }
     },
 ]
@@ -85,6 +85,12 @@ module.exports = {
     },
 
     async down(queryInterface, Sequelize) {
-        await Event.destroy({ where: { name: 'testing' } })
+        for (let info of groupEvents) {
+            const { name, address, event } = info;
+            const group = await Group.findOne({ where: { name } });
+
+            const evnt = await Event.findOne({ where: { ...event, groupId: group.id } });
+            await evnt.destroy();
+        }
     }
 };
