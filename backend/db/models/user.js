@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'organizerId', onDelete: 'CASCADE', hooks: true
             });
 
+            User.belongsToMany(models.Event, {
+                through: 'EventAttendee',
+                foreignKey: 'userId',
+                otherKey: 'eventId'
+            })
         }
     }
     User.init({
