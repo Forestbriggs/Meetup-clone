@@ -257,7 +257,7 @@ const getAllVenuesByGroupId = async (req, res, next) => {
         }
     })
 
-    return res.json(venues);
+    return res.json({ Venues: venues });
 };
 
 const createVenueByGroupId = async (req, res, next) => {
