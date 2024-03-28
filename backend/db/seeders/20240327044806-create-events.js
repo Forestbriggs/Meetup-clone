@@ -85,6 +85,6 @@ module.exports = {
     },
 
     async down(queryInterface, Sequelize) {
-        Event.destroy({ where: { name: 'testing' } })
+        await Event.destroy({ where: { name: 'testing' } })
     }
 };
