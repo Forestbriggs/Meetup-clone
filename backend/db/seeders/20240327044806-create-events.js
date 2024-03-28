@@ -11,60 +11,59 @@ const groupEvents = [
             type: "In person",
             capacity: 1000,
             price: 0,
-            startDate: new Date('March 30, 2024 10:00:00').toString(),
-            endDate: new Date('March 31, 2024 14:00:00').toString()
+            startDate: new Date('March 15, 2025 10:00:00').toString(),
+            endDate: new Date('March 16, 2025 14:00:00').toString()
         }
     },
     {
-        name: '',
-        address: '',
+        name: 'Heart Pirates',
+        address: 'Sabaody Archipelago',
         event: {
-            name: '',
-            description: '',
-            type: '',
-            capacity: 0,
+            name: "Sabaody Archipelago Human Auction Rescue",
+            description: "Rescuing enslaved humans from the underground human auction at Sabaody Archipelago.",
+            type: "In person",
+            capacity: 50,
             price: 0,
-            startDate: new Date().toString(),
-            endDate: new Date().toString()
+            startDate: new Date('February 2, 2025 18:00:00').toString(),
+            endDate: new Date('February 3, 2025 10:00:00').toString()
         }
     },
     {
-        name: '',
-        address: '',
+        name: 'Marines',
+        address: 'Marineford',
         event: {
-            name: '',
-            description: '',
-            type: '',
-            capacity: 0,
+            name: "Marineford War",
+            description: "Engagement in the Battle of Marineford against the Whitebeard Pirates and their allies, aiming to execute Portgas D. Ace and suppress the pirate forces.",
+            type: "In person",
+            capacity: "1000",
             price: 0,
-            startDate: new Date().toString(),
-            endDate: new Date().toString()
+            startDate: new Date('March 1, 2025 12:00:00').toString(),
+            endDate: new Date('March 3, 2025 16:00:00').toString()
         }
     },
     {
-        name: '',
-        address: '',
+        name: 'Straw Hat Pirates',
+        address: 'Water 7 Island',
         event: {
-            name: '',
-            description: '',
-            type: '',
-            capacity: 0,
-            price: 0,
-            startDate: new Date().toString(),
-            endDate: new Date().toString()
+            name: 'Potluck',
+            description: "We're toast after the Aqua Laguna Relief Effort! I'm sure you are too. Join us for a feast down here in Water 7 to celebrate!",
+            type: 'In person',
+            capacity: 25,
+            price: 15,
+            startDate: new Date('March 17, 2025 08:00:00').toString(),
+            endDate: new Date('March 17, 2025 12:00:00').toString()
         }
     },
     {
-        name: '',
-        address: '',
+        name: 'The Revolutionary Army',
         event: {
-            name: '',
-            description: '',
-            type: '',
-            capacity: 0,
+            name: 'Secret planning',
+            description: 'If you know you know',
+            type: 'Online',
+            capacity: 10,
             price: 0,
-            startDate: new Date().toString(),
-            endDate: new Date().toString()
+            startDate: new Date('April 29, 2025 18:00:00').toString(),
+            endDate: new Date('April 29, 2025 20:00:00').toString()
         }
     },
 ]
@@ -77,7 +76,7 @@ module.exports = {
             const group = await Group.findOne({ where: { name } });
             let venue;
             if (address) {
-                venue = await Venue.findOne({ where: { address } });
+                venue = await Venue.findOne({ where: { address, groupId: group.id } });
             }
 
             await group.createEvent({ venueId: venue ? venue.id : null, ...event },
