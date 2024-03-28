@@ -1,4 +1,4 @@
-const { Event, Group, Venue } = require('../db/models');
+const { Event, Group, Venue, EventImage } = require('../db/models');
 
 // TODO add numAttending and previewImage
 const getAllEvents = async (req, res, next) => {
@@ -15,11 +15,26 @@ const getAllEvents = async (req, res, next) => {
                 model: Venue,
                 attributes: ['id', 'city', 'state'],
                 required: false
+            },
+            {
+                model: EventImage,
+                where: {
+                    preview: true
+                },
+                required: false
             }
         ]
     });
 
-    res.json(events);
+    await Promise.all(events.map(async (event) => {
+        event.dataValues.numAttending = await event.countUsers() + 1;
+        event.dataValues.previewImage = event.dataValues.EventImages[0]?.url || null;
+        delete event.dataValues.EventImages;
+
+        return event;
+    }))
+
+    res.json({ Events: events });
 };
 
 module.exports = {
