@@ -1,7 +1,6 @@
 //* /backend/utils/groups.js
 const { Group, User, GroupMember, GroupImage, Venue } = require('../db/models');
 
-
 //* Route Functions ------------------------------------------------------------
 const getAllGroups = async (req, res, next) => {
     let groups = await Group.findAll({
@@ -107,8 +106,6 @@ const getGroupById = async (req, res, next) => {
     group.dataValues.Organizer = await User.unscoped().findByPk(group.dataValues.organizerId, {
         attributes: ['id', 'firstName', 'lastName']
     });
-
-
 
     return res.json(group)
 };

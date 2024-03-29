@@ -1,5 +1,4 @@
 const { Event, Group, Venue, EventImage, GroupMember, EventAttendee } = require('../db/models');
-const { formatDate } = require('../utils/formatDate.js');
 
 const getAllEvents = async (req, res, next) => {
     const events = await Event.findAll({
@@ -338,8 +337,8 @@ const editEventById = async (req, res, next) => {
         capacity: event.capacity,
         price: event.price,
         description: event.description,
-        startDate: formatDate(event.startDate),
-        endDate: formatDate(event.endDate)
+        startDate: event.startDate,
+        endDate: event.endDate
     });
 };
 
