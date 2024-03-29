@@ -1,4 +1,5 @@
-const { Event, Group, Venue, EventImage } = require('../db/models');
+const { Event, Group, Venue, EventImage, GroupMember, EventAttendee } = require('../db/models');
+const { formatDate } = require('../utils/formatDate.js');
 
 const getAllEvents = async (req, res, next) => {
     const events = await Event.findAll({
@@ -33,7 +34,7 @@ const getAllEvents = async (req, res, next) => {
         return event;
     }))
 
-    res.json({ Events: events });
+    return res.json({ Events: events });
 };
 
 const getAllEventsByGroupId = async (req, res, next) => {
@@ -83,7 +84,7 @@ const getAllEventsByGroupId = async (req, res, next) => {
         return event;
     }))
 
-    res.json({ Events: events });
+    return res.json({ Events: events });
 };
 
 const getEventDetailsByEventId = async (req, res, next) => {
@@ -128,8 +129,225 @@ const getEventDetailsByEventId = async (req, res, next) => {
     return res.json(event)
 };
 
+const createEventByGroupId = async (req, res, next) => {
+    const { groupId } = req.params;
+
+    const group = await Group.findByPk(groupId, {
+        include: [
+            {
+                model: GroupMember,
+                where: {
+                    memberId: req.user.id
+                },
+                required: false
+            }
+        ]
+    });
+
+    if (!group) {
+        const err = new Error("Group couldn't be found");
+        err.title = "Couldn't find a Group with the specified id";
+        err.status = 404;
+        return next(err);
+    }
+
+    if (req.user.id !== group.organizerId) {
+
+        if (group.GroupMembers[0]?.dataValues.status !== 'co-host') {
+            const err = new Error('Unauthorized');
+            err.title = 'Unauthorized';
+            err.errors = { message: 'Unauthorized' };
+            err.status = 401;
+            return next(err);
+        }
+    }
+
+    const { venueId, name, type, capacity, price, description,
+        startDate, endDate } = req.body;
+
+    let venue;
+
+    if (venueId) {
+        venue = await Venue.findByPk(venueId);
+
+        if (!venue) {
+            const err = new Error("Venue couldn't be found");
+            err.title = "Couldn't find a Venue with the specified id";
+            err.status = 404;
+            return next(err);
+        }
+    }
+
+    const event = await group.createEvent({
+        venueId: venue ? venue.id : null,
+        name,
+        type,
+        capacity,
+        price,
+        description,
+        startDate,
+        endDate
+    });
+
+    return res.json({
+        id: event.id,
+        groupId: event.groupId,
+        venueId: event.venueId,
+        name: event.name,
+        type: event.type,
+        capacity: event.capacity,
+        price: event.price,
+        description: event.description,
+        startDate: event.startDate,
+        endDate: event.endDate
+    });
+};
+
+const addImageToEventByEventId = async (req, res, next) => {
+    const { eventId } = req.params;
+
+    const event = await Event.findByPk(eventId, {
+        include: [
+            {
+                model: EventAttendee,
+                where: {
+                    userId: req.user.id
+                },
+                required: false
+            },
+            {
+                model: Group,
+                include: [
+                    {
+                        model: GroupMember,
+                        where: {
+                            memberId: req.user.id
+                        },
+                        required: false
+                    }
+                ]
+            }
+        ]
+    });
+
+    if (!event) {
+        const err = new Error("Event couldn't be found");
+        err.title = "Couldn't find an Event with the specified id";
+        err.status = 404;
+        return next(err);
+    }
+
+    if (req.user.id !== event.dataValues.Group.dataValues.organizerId) {
+
+
+        if (event.dataValues.Group.GroupMembers[0]?.dataValues.status !== 'co-host'
+            && event.dataValues.EventAttendees[0]?.dataValues.status !== 'attending') {
+            const err = new Error('Unauthorized');
+            err.title = 'Unauthorized';
+            err.errors = { message: 'Unauthorized' };
+            err.status = 401;
+            return next(err);
+        }
+    }
+
+    const { url, preview } = req.body;
+    const image = await event.createEventImage({
+        url,
+        preview
+    });
+
+    return res.json({
+        id: image.id,
+        url: image.url,
+        preview: image.preview
+    });
+};
+
+const editEventById = async (req, res, next) => {
+    const { eventId } = req.params;
+
+    const event = await Event.findByPk(eventId, {
+        include: [
+            {
+                model: Group,
+                include: [
+                    {
+                        model: GroupMember,
+                        where: {
+                            memberId: req.user.id
+                        },
+                        required: false
+                    }
+                ]
+            }
+        ]
+    });
+
+    if (!event) {
+        const err = new Error("Event couldn't be found");
+        err.title = "Couldn't find an Event with the specified id";
+        err.status = 404;
+        return next(err);
+    }
+
+    if (req.user.id !== event.dataValues.Group.dataValues.organizerId) {
+
+
+        if (event.dataValues.Group.GroupMembers[0]?.dataValues.status !== 'co-host') {
+            const err = new Error('Unauthorized');
+            err.title = 'Unauthorized';
+            err.errors = { message: 'Unauthorized' };
+            err.status = 401;
+            return next(err);
+        }
+    }
+
+    const { venueId, name, type, capacity, price, description,
+        startDate, endDate } = req.body;
+
+    let venue;
+
+    if (venueId) {
+        venue = await Venue.findByPk(venueId);
+
+        if (!venue) {
+            const err = new Error("Venue couldn't be found");
+            err.title = "Couldn't find a Venue with the specified id";
+            err.status = 404;
+            return next(err);
+        }
+    }
+
+    await event.update({
+        venueId: venue ? venue.id : null,
+        name,
+        type,
+        capacity,
+        price,
+        description,
+        startDate,
+        endDate
+    })
+
+    return res.json({
+        id: event.id,
+        groupId: event.groupId,
+        venueId: event.venueId,
+        name: event.name,
+        type: event.type,
+        capacity: event.capacity,
+        price: event.price,
+        description: event.description,
+        startDate: formatDate(event.startDate),
+        endDate: formatDate(event.endDate)
+    });
+};
+
 module.exports = {
     getAllEvents,
     getAllEventsByGroupId,
-    getEventDetailsByEventId
+    getEventDetailsByEventId,
+    createEventByGroupId,
+    addImageToEventByEventId,
+    editEventById
 };

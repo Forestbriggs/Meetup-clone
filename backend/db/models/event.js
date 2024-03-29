@@ -29,7 +29,13 @@ module.exports = (sequelize, DataTypes) => {
                 through: 'EventAttendee',
                 foreignKey: 'eventId',
                 otherKey: 'userId'
-            })
+            });
+
+            Event.hasMany(models.EventAttendee, {
+                foreignKey: 'eventId',
+                onDelete: "CASCADE",
+                hooks: true
+            });
         }
     }
     Event.init({
