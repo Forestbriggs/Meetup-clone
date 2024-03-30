@@ -2,7 +2,8 @@ const express = require('express');
 
 const { getAllEvents, getEventDetailsByEventId,
     addImageToEventByEventId, editEventById, deleteEventById } = require('../../utils/events.js');
-const { getAttendeesByEventId } = require('../../utils/attendees.js');
+const { getAttendeesByEventId, requestEventAttendanceByEventId,
+    changeAttendanceStatusByEventId } = require('../../utils/attendees.js');
 const { requireAuth } = require('../../utils/auth.js');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -45,11 +46,24 @@ const validateEventBody = [
         })
         .withMessage('End date is less than start date'),
     handleValidationErrors
-]
+];
+
+const validateAttendanceBody = [
+    check('status')
+        .exists({ checkFalsy: true })
+        .not()
+        .isIn(['pending'])
+        .withMessage('Cannot change a attendance status to pending'),
+    handleValidationErrors
+];
 
 //* Routes ---------------------------------------------------------------------
 
 router.get('/:eventId/attendees', getAttendeesByEventId);
+
+router.post('/:eventId/attendance', requireAuth, requestEventAttendanceByEventId);
+
+router.put('/:eventId/attendance', requireAuth, validateAttendanceBody, changeAttendanceStatusByEventId);
 
 router.post('/:eventId/images', requireAuth, addImageToEventByEventId);
 

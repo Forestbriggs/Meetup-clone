@@ -166,6 +166,7 @@ const changeMembershipStatusByGroupId = async (req, res, next) => {
             return next(err);
         }
     }
+
     await userIsMember.update({
         status
     });
