@@ -4,8 +4,10 @@ const express = require('express');
 const { getAllGroups, getCurrentUserGroups, getGroupById, createGroup,
     addGroupImage, editGroupById, deleteGroupById, getAllVenuesByGroupId,
     createVenueByGroupId } = require('../../utils/groups.js');
-const { getAllEventsByGroupId, createEventByGroupId } = require('../../utils/events.js');
-const { getGroupMembersByGroupId, requestMembershipByGroupId } = require('../../utils/memberships.js');
+const { getAllEventsByGroupId,
+    createEventByGroupId } = require('../../utils/events.js');
+const { getGroupMembersByGroupId, requestMembershipByGroupId,
+    changeMembershipStatusByGroupId } = require('../../utils/memberships.js');
 const { requireAuth } = require('../../utils/auth.js');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -96,7 +98,16 @@ const validateEventBody = [
         })
         .withMessage('End date is less than start date'),
     handleValidationErrors
-]
+];
+
+const validateMembershipBody = [
+    check('status')
+        .exists({ checkFalsy: true })
+        .not()
+        .isIn(['pending'])
+        .withMessage('Cannot change a membership status to pending'),
+    handleValidationErrors
+];
 
 //* Routes ---------------------------------------------------------------------
 
@@ -106,15 +117,20 @@ router.get('/:groupId/members', getGroupMembersByGroupId);
 
 router.post('/:groupId/membership', requireAuth, requestMembershipByGroupId);
 
+router.put('/:groupId/membership', requireAuth,
+    validateMembershipBody, changeMembershipStatusByGroupId);
+
 router.get('/:groupId/events', getAllEventsByGroupId);
 
-router.post('/:groupId/events', requireAuth, validateEventBody, createEventByGroupId);
+router.post('/:groupId/events', requireAuth,
+    validateEventBody, createEventByGroupId);
 
 router.post('/:groupId/images', requireAuth, addGroupImage);
 
 router.get('/:groupId/venues', requireAuth, getAllVenuesByGroupId);
 
-router.post('/:groupId/venues', requireAuth, validateVenueBody, createVenueByGroupId)
+router.post('/:groupId/venues', requireAuth,
+    validateVenueBody, createVenueByGroupId)
 
 router.put('/:groupId', requireAuth, validateGroupBody, editGroupById);
 

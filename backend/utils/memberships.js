@@ -102,7 +102,81 @@ const requestMembershipByGroupId = async (req, res, next) => {
     res.json(newMember);
 };
 
+const changeMembershipStatusByGroupId = async (req, res, next) => {
+    const { groupId } = req.params;
+    const { memberId, status } = req.body;
+
+    const group = await Group.findByPk(groupId, {
+        include: [
+            {
+                model: GroupMember,
+                where: {
+                    memberId: req.user.id
+                },
+                required: false
+            }
+        ]
+    });
+
+    if (!group) {
+        const err = new Error("Group couldn't be found");
+        err.title = "Couldn't find a Group with the specified id";
+        err.status = 404;
+        return next(err);
+    }
+
+    const userExists = await User.findByPk(memberId);
+
+    if (!userExists) {
+        const err = new Error("User couldn't be found");
+        err.title = "Couldn't find a User with the specified id";
+        err.status = 404;
+        return next(err);
+    }
+
+    const userIsMember = await GroupMember.findOne({
+        attributes: ['id', 'memberId', 'groupId', 'status'],
+        where: {
+            memberId: userExists.id,
+            groupId: group.id
+        }
+    })
+
+    if (!userIsMember) {
+        const err = new Error("Membership between the user and the group does not exist");
+        err.title = "Membership does not exist";
+        err.status = 404;
+        return next(err);
+    }
+
+    if (status === 'co-host' && req.user.id !== group.dataValues.organizerId) {
+        const err = new Error('Unauthorized');
+        err.title = 'Unauthorized';
+        err.errors = { message: 'Unauthorized' };
+        err.status = 401;
+        return next(err);
+    }
+
+    if (status === 'member' && req.user.id !== group.dataValues.organizerId) {
+        if (group.dataValues.GroupMembers[0]?.dataValues.status !== 'co-host') {
+            const err = new Error('Unauthorized');
+            err.title = 'Unauthorized';
+            err.errors = { message: 'Unauthorized' };
+            err.status = 401;
+            return next(err);
+        }
+    }
+    await userIsMember.update({
+        status
+    });
+
+    delete userIsMember.dataValues.updatedAt;
+
+    res.json(userIsMember)
+};
+
 module.exports = {
     getGroupMembersByGroupId,
-    requestMembershipByGroupId
+    requestMembershipByGroupId,
+    changeMembershipStatusByGroupId
 };
