@@ -338,11 +338,57 @@ const editEventById = async (req, res, next) => {
     return res.json(event);
 };
 
+const deleteEventById = async (req, res, next) => {
+    const { eventId } = req.params;
+
+    const event = await Event.findByPk(eventId, {
+        include: [
+            {
+                model: Group,
+                include: [
+                    {
+                        model: GroupMember,
+                        where: {
+                            memberId: req.user.id
+                        },
+                        required: false
+                    }
+                ]
+            }
+        ]
+    });
+
+    if (!event) {
+        const err = new Error("Event couldn't be found");
+        err.title = "Couldn't find an Event with the specified id";
+        err.status = 404;
+        return next(err);
+    }
+
+    if (req.user.id !== event.dataValues.Group.dataValues.organizerId) {
+
+        if (event.dataValues.Group.GroupMembers[0]?.dataValues.status !== 'co-host') {
+            const err = new Error('Unauthorized');
+            err.title = 'Unauthorized';
+            err.errors = { message: 'Unauthorized' };
+            err.status = 401;
+            return next(err);
+        }
+    };
+
+    await event.destroy();
+
+    res.json({
+        message: 'Successfully deleted'
+    })
+};
+
 module.exports = {
     getAllEvents,
     getAllEventsByGroupId,
     getEventDetailsByEventId,
     createEventByGroupId,
     addImageToEventByEventId,
-    editEventById
+    editEventById,
+    deleteEventById
 };

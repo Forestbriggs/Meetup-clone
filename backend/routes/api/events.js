@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { getAllEvents, getEventDetailsByEventId,
-    addImageToEventByEventId, editEventById } = require('../../utils/events.js');
+    addImageToEventByEventId, editEventById, deleteEventById } = require('../../utils/events.js');
 const { requireAuth } = require('../../utils/auth.js');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -53,6 +53,8 @@ router.post('/:eventId/images', requireAuth, addImageToEventByEventId);
 router.get('/:eventId', getEventDetailsByEventId)
 
 router.put('/:eventId', requireAuth, validateEventBody, editEventById);
+
+router.delete('/:eventId', requireAuth, deleteEventById);
 
 router.get('/', getAllEvents);
 
