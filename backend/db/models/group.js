@@ -1,4 +1,7 @@
 'use strict';
+
+const { formatDate } = require('../../utils/formatDate');
+
 const {
     Model
 } = require('sequelize');
@@ -22,16 +25,26 @@ module.exports = (sequelize, DataTypes) => {
 
             Group.hasMany(models.GroupImage, {
                 foreignKey: 'groupId',
-                onDelete: 'CASCADE',
+                onDelete: "CASCADE",
                 hooks: true
             });
 
             Group.hasMany(models.GroupMember, {
-                foreignKey: 'groupId'
+                foreignKey: 'groupId',
+                onDelete: "CASCADE",
+                hooks: true
             });
 
             Group.hasMany(models.Venue, {
-                foreignKey: 'groupId'
+                foreignKey: 'groupId',
+                onDelete: "CASCADE",
+                hooks: true
+            });
+
+            Group.hasMany(models.Event, {
+                foreignKey: 'groupId',
+                onDelete: "CASCADE",
+                hooks: true
             });
         }
     }
