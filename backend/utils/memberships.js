@@ -153,7 +153,7 @@ const changeMembershipStatusByGroupId = async (req, res, next) => {
         const err = new Error('Unauthorized');
         err.title = 'Unauthorized';
         err.errors = { message: 'Unauthorized' };
-        err.status = 401;
+        err.status = 403;
         return next(err);
     }
 
@@ -162,7 +162,7 @@ const changeMembershipStatusByGroupId = async (req, res, next) => {
             const err = new Error('Unauthorized');
             err.title = 'Unauthorized';
             err.errors = { message: 'Unauthorized' };
-            err.status = 401;
+            err.status = 403;
             return next(err);
         }
     }
@@ -214,7 +214,7 @@ const deleteGroupMembershipByMemberId = async (req, res, next) => {
         const err = new Error('Unauthorized');
         err.title = 'Unauthorized';
         err.errors = { message: 'Unauthorized' };
-        err.status = 401;
+        err.status = 403;
         return next(err);
     }
 
