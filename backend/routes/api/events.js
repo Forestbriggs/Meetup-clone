@@ -3,7 +3,7 @@ const express = require('express');
 const { getAllEvents, getEventDetailsByEventId,
     addImageToEventByEventId, editEventById, deleteEventById } = require('../../utils/events.js');
 const { getAttendeesByEventId, requestEventAttendanceByEventId,
-    changeAttendanceStatusByEventId } = require('../../utils/attendees.js');
+    changeAttendanceStatusByEventId, deleteAttendanceByUserId } = require('../../utils/attendees.js');
 const { requireAuth } = require('../../utils/auth.js');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -58,6 +58,8 @@ const validateAttendanceBody = [
 ];
 
 //* Routes ---------------------------------------------------------------------
+
+router.delete('/:eventId/attendance/:userId', requireAuth, deleteAttendanceByUserId);
 
 router.get('/:eventId/attendees', getAttendeesByEventId);
 

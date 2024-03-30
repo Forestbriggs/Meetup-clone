@@ -191,8 +191,61 @@ const changeAttendanceStatusByEventId = async (req, res, next) => {
     return res.json(userIsPending)
 };
 
+const deleteAttendanceByUserId = async (req, res, next) => {
+    const { eventId, userId } = req.params;
+
+    const event = await Event.findByPk(eventId);
+
+    if (!event) {
+        const err = new Error("Event couldn't be found");
+        err.title = "Couldn't find an Event with the specified id";
+        err.status = 404;
+        return next(err);
+    }
+
+    const userExists = await User.findByPk(userId);
+
+    if (!userExists) {
+        const err = new Error("User couldn't be found");
+        err.title = "Couldn't find a User with the specified id";
+        err.status = 404;
+        return next(err);
+    }
+
+    const attendeePendingDelete = await EventAttendee.findOne({
+        where: {
+            eventId,
+            userId
+        }
+    });
+
+    if (!attendeePendingDelete) {
+        const err = new Error("Attendance does not exist for this User");
+        err.title = "User is not an attendee or pending attendee for this event";
+        err.status = 404;
+        return next(err);
+    }
+
+    const group = await Group.findByPk(event.groupId);
+
+    if (req.user.id !== group.organizerId && req.user.id !== attendeePendingDelete.userId) {
+        const err = new Error('Unauthorized');
+        err.title = 'Unauthorized';
+        err.errors = { message: 'Unauthorized' };
+        err.status = 403;
+        return next(err);
+    }
+
+    await attendeePendingDelete.destroy();
+
+    res.json({
+        message: "Successfully deleted attendance from event"
+    });
+};
+
 module.exports = {
     getAttendeesByEventId,
     requestEventAttendanceByEventId,
-    changeAttendanceStatusByEventId
+    changeAttendanceStatusByEventId,
+    deleteAttendanceByUserId
 };
