@@ -1,5 +1,6 @@
 //* /backend/utils/groups.js
 const { Group, User, GroupMember, GroupImage, Venue } = require('../db/models');
+const { formatDate } = require('../utils/formatDate');
 
 //* Route Functions ------------------------------------------------------------
 const getAllGroups = async (req, res, next) => {
@@ -18,6 +19,8 @@ const getAllGroups = async (req, res, next) => {
     await Promise.all(groups.map(async (group) => {
         group.dataValues.numMembers = await group.countUsers() + 1;
         group.dataValues.previewImage = group.dataValues.GroupImages[0]?.url || null;
+        group.dataValues.createdAt = formatDate(group.dataValues.createdAt);
+        group.dataValues.updatedAt = formatDate(group.dataValues.updatedAt);
         delete group.dataValues.GroupImages;
 
         return group;
@@ -68,6 +71,8 @@ const getCurrentUserGroups = async (req, res, next) => {
     groups = await Promise.all(groups.map(async (group) => {
         group.dataValues.numMembers = await group.countUsers() + 1;
         group.dataValues.previewImage = group.dataValues.GroupImages[0]?.url || null;
+        group.dataValues.createdAt = formatDate(group.dataValues.createdAt);
+        group.dataValues.updatedAt = formatDate(group.dataValues.updatedAt);
         delete group.dataValues.GroupImages;
 
         return group
@@ -102,6 +107,8 @@ const getGroupById = async (req, res, next) => {
     }
 
     group.dataValues.numMembers = await group.countUsers() + 1;
+    group.dataValues.createdAt = formatDate(group.dataValues.createdAt);
+    group.dataValues.updatedAt = formatDate(group.dataValues.updatedAt);
 
     group.dataValues.Organizer = await User.unscoped().findByPk(group.dataValues.organizerId, {
         attributes: ['id', 'firstName', 'lastName']
@@ -123,6 +130,9 @@ const createGroup = async (req, res, next) => {
         state,
         organizerId
     });
+
+    group.dataValues.createdAt = formatDate(group.dataValues.createdAt);
+    group.dataValues.updatedAt = formatDate(group.dataValues.updatedAt);
 
     return res.status(201).json(group);
 };
@@ -185,6 +195,9 @@ const editGroupById = async (req, res, next) => {
         city,
         state
     });
+
+    group.dataValues.createdAt = formatDate(group.dataValues.createdAt);
+    group.dataValues.updatedAt = formatDate(group.dataValues.updatedAt);
 
     return res.json(group);
 };

@@ -91,23 +91,6 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
     }, {
-        hooks: {
-            afterFind: function (result) {
-                console.log(result)
-                if (!Array.isArray(result)) {
-                    result = [result];
-                }
-                for (let res of result) {
-                    res.dataValues.createdAt = formatDate(res.dataValues.createdAt)
-                    res.dataValues.updatedAt = formatDate(res.dataValues.updatedAt)
-                }
-                return result;
-            },
-            afterUpdate: function (result) {
-                result.dataValues.updatedAt = formatDate(result.dataValues.updatedAt);
-                return result;
-            },
-        },
         sequelize,
         modelName: 'Group',
     });

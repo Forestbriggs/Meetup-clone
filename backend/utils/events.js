@@ -1,4 +1,5 @@
 const { Event, Group, Venue, EventImage, GroupMember, EventAttendee } = require('../db/models');
+const { formatDate } = require('../utils/formatDate');
 
 const getAllEvents = async (req, res, next) => {
     const events = await Event.findAll({
@@ -28,6 +29,8 @@ const getAllEvents = async (req, res, next) => {
     await Promise.all(events.map(async (event) => {
         event.dataValues.numAttending = await event.countUsers() + 1;
         event.dataValues.previewImage = event.dataValues.EventImages[0]?.url || null;
+        event.dataValues.startDate = formatDate(event.dataValues.startDate);
+        event.dataValues.endDate = formatDate(event.dataValues.endDate);
         delete event.dataValues.EventImages;
 
         return event;
@@ -78,6 +81,8 @@ const getAllEventsByGroupId = async (req, res, next) => {
     await Promise.all(events.map(async (event) => {
         event.dataValues.numAttending = await event.countUsers() + 1;
         event.dataValues.previewImage = event.dataValues.EventImages[0]?.url || null;
+        event.dataValues.startDate = formatDate(event.dataValues.startDate);
+        event.dataValues.endDate = formatDate(event.dataValues.endDate);
         delete event.dataValues.EventImages;
 
         return event;
@@ -124,6 +129,8 @@ const getEventDetailsByEventId = async (req, res, next) => {
     }
 
     event.dataValues.numAttending = await event.countUsers() + 1;
+    event.dataValues.startDate = formatDate(event.dataValues.startDate);
+    event.dataValues.endDate = formatDate(event.dataValues.endDate);
 
     return res.json(event)
 };
@@ -188,18 +195,12 @@ const createEventByGroupId = async (req, res, next) => {
         endDate
     });
 
-    return res.json({
-        id: event.id,
-        groupId: event.groupId,
-        venueId: event.venueId,
-        name: event.name,
-        type: event.type,
-        capacity: event.capacity,
-        price: event.price,
-        description: event.description,
-        startDate: event.startDate,
-        endDate: event.endDate
-    });
+    event.dataValues.startDate = formatDate(event.dataValues.startDate);
+    event.dataValues.endDate = formatDate(event.dataValues.endDate);
+    delete event.dataValues.createdAt;
+    delete event.dataValues.updatedAt;
+
+    return res.json(event);
 };
 
 const addImageToEventByEventId = async (req, res, next) => {
@@ -326,20 +327,15 @@ const editEventById = async (req, res, next) => {
         description,
         startDate,
         endDate
-    })
-
-    return res.json({
-        id: event.id,
-        groupId: event.groupId,
-        venueId: event.venueId,
-        name: event.name,
-        type: event.type,
-        capacity: event.capacity,
-        price: event.price,
-        description: event.description,
-        startDate: event.startDate,
-        endDate: event.endDate
     });
+
+    event.dataValues.startDate = formatDate(event.dataValues.startDate);
+    event.dataValues.endDate = formatDate(event.dataValues.endDate);
+    delete event.dataValues.createdAt;
+    delete event.dataValues.updatedAt;
+    delete event.dataValues.Group;
+
+    return res.json(event);
 };
 
 module.exports = {

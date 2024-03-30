@@ -97,18 +97,6 @@ module.exports = (sequelize, DataTypes) => {
             }
         }
     }, {
-        hooks: {
-            afterFind: function (result) {
-                if (!Array.isArray(result)) {
-                    result = [result];
-                }
-                for (let res of result) {
-                    res.dataValues.startDate = formatDate(res.dataValues.startDate)
-                    res.dataValues.endDate = formatDate(res.dataValues.endDate)
-                }
-                return result;
-            }
-        },
         sequelize,
         modelName: 'Event',
     });
