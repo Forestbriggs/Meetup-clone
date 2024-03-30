@@ -82,9 +82,9 @@ const requestEventAttendanceByEventId = async (req, res, next) => {
     });
 
     if (!group.dataValues.GroupMembers[0]) {
-        const err = new Error('Unauthorized');
-        err.title = 'Unauthorized';
-        err.errors = { message: 'Unauthorized' };
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = { message: 'Forbidden' };
         err.status = 403;
         return next(err);
     }
@@ -174,9 +174,9 @@ const changeAttendanceStatusByEventId = async (req, res, next) => {
 
     if (req.user.id !== group.dataValues.organizerId) {
         if (group.dataValues.GroupMembers[0]?.dataValues.status !== 'co-host') {
-            const err = new Error('Unauthorized');
-            err.title = 'Unauthorized';
-            err.errors = { message: 'Unauthorized' };
+            const err = new Error('Forbidden');
+            err.title = 'Forbidden';
+            err.errors = { message: 'Forbidden' };
             err.status = 403;
             return next(err);
         }
@@ -229,9 +229,9 @@ const deleteAttendanceByUserId = async (req, res, next) => {
     const group = await Group.findByPk(event.groupId);
 
     if (req.user.id !== group.organizerId && req.user.id !== attendeePendingDelete.userId) {
-        const err = new Error('Unauthorized');
-        err.title = 'Unauthorized';
-        err.errors = { message: 'Unauthorized' };
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = { message: 'Forbidden' };
         err.status = 403;
         return next(err);
     }
