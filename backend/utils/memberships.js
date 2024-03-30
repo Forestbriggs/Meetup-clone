@@ -175,8 +175,59 @@ const changeMembershipStatusByGroupId = async (req, res, next) => {
     res.json(userIsMember)
 };
 
+const deleteGroupMembershipByMemberId = async (req, res, next) => {
+    const { groupId, memberId } = req.params;
+
+    const group = await Group.findByPk(groupId);
+
+    if (!group) {
+        const err = new Error("Group couldn't be found");
+        err.title = "Couldn't find a Group with the specified id";
+        err.status = 404;
+        return next(err);
+    }
+
+    const userExists = await User.findByPk(memberId);
+
+    if (!userExists) {
+        const err = new Error("User couldn't be found");
+        err.title = "Couldn't find a User with the specified id";
+        err.status = 404;
+        return next(err);
+    }
+
+    const memberPendingDelete = await GroupMember.findOne({
+        where: {
+            memberId,
+            groupId
+        }
+    })
+
+    if (!memberPendingDelete) {
+        const err = new Error("Membership does not exist for this User");
+        err.title = "User is not a member or pending member of this group";
+        err.status = 404;
+        return next(err);
+    }
+
+    if (req.user.id !== group.organizerId && req.user.id !== memberPendingDelete.memberId) {
+        const err = new Error('Unauthorized');
+        err.title = 'Unauthorized';
+        err.errors = { message: 'Unauthorized' };
+        err.status = 401;
+        return next(err);
+    }
+
+    await memberPendingDelete.destroy();
+
+    res.json({
+        message: "Successfully deleted membership from group"
+    });
+};
+
 module.exports = {
     getGroupMembersByGroupId,
     requestMembershipByGroupId,
-    changeMembershipStatusByGroupId
+    changeMembershipStatusByGroupId,
+    deleteGroupMembershipByMemberId
 };

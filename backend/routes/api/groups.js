@@ -7,7 +7,7 @@ const { getAllGroups, getCurrentUserGroups, getGroupById, createGroup,
 const { getAllEventsByGroupId,
     createEventByGroupId } = require('../../utils/events.js');
 const { getGroupMembersByGroupId, requestMembershipByGroupId,
-    changeMembershipStatusByGroupId } = require('../../utils/memberships.js');
+    changeMembershipStatusByGroupId, deleteGroupMembershipByMemberId } = require('../../utils/memberships.js');
 const { requireAuth } = require('../../utils/auth.js');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -112,6 +112,9 @@ const validateMembershipBody = [
 //* Routes ---------------------------------------------------------------------
 
 router.get('/current', requireAuth, getCurrentUserGroups);
+
+router.delete('/:groupId/membership/:memberId', requireAuth,
+    deleteGroupMembershipByMemberId);
 
 router.get('/:groupId/members', getGroupMembersByGroupId);
 
