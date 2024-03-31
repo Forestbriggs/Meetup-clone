@@ -1,7 +1,28 @@
-const { Event, Group, Venue, EventImage, GroupMember, EventAttendee } = require('../db/models');
+const { Event, Group, Venue, EventImage, GroupMember, EventAttendee, Sequelize } = require('../db/models');
 const { formatDate } = require('../utils/formatDate');
+const Op = Sequelize.Op;
 
 const getAllEvents = async (req, res, next) => {
+    let { page, size, name, type, startDate } = req.query;
+
+    page = parseInt(page);
+    size = parseInt(size);
+
+    if (Number.isNaN(page) || page > 10) page = 1;
+    if (Number.isNaN(size) || size > 20) size = 20;
+
+    //TODO figure out startDate query
+    const queries = {}
+    if (name) queries.name = {
+        [Op.like]: `%${name}%`
+    }
+    if (type) queries.type = type
+    // if (startDate) {
+    //     console.log(startDate)
+    //     queries.startDate = new Date(startDate).toISOString();
+    // }
+    // console.log(queries)
+
     const events = await Event.findAll({
         attributes: {
             exclude: ['price', 'capacity', 'description', 'createdAt', 'updatedAt']
@@ -23,7 +44,12 @@ const getAllEvents = async (req, res, next) => {
                 },
                 required: false
             }
-        ]
+        ],
+        limit: size,
+        offset: size * (page - 1),
+        where: {
+            ...queries
+        }
     });
 
     await Promise.all(events.map(async (event) => {

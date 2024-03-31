@@ -57,6 +57,31 @@ const validateAttendanceBody = [
     handleValidationErrors
 ];
 
+//TODO figure out startDate validation
+const validateQueries = [
+    check('page')
+        .optional()
+        .isInt({ min: 1 })
+        .withMessage('Page must be greater than or equal to 1'),
+    check('size')
+        .optional()
+        .isInt({ min: 1 })
+        .withMessage('Size must be greater than or equal to 1'),
+    check('name')
+        .optional()
+        .isString()
+        .withMessage('Name must be a string'),
+    check('type')
+        .optional()
+        .isIn(['Online', 'In person'])
+        .withMessage("Type must be 'Online' or 'In person'"),
+    // check('startDate')
+    //     .optional()
+    //     .custom((startDate))
+    //     .withMessage('Start date must be a valid datetime'),
+    handleValidationErrors
+];
+
 //* Routes ---------------------------------------------------------------------
 
 router.delete('/:eventId/attendance/:userId', requireAuth, deleteAttendanceByUserId);
@@ -75,7 +100,7 @@ router.put('/:eventId', requireAuth, validateEventBody, editEventById);
 
 router.delete('/:eventId', requireAuth, deleteEventById);
 
-router.get('/', getAllEvents);
+router.get('/', validateQueries, getAllEvents);
 
 
 module.exports = router;
