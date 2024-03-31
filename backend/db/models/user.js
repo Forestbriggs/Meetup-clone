@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
             User.hasMany(models.GroupMember, {
                 foreignKey: 'memberId'
             });
+
+            User.hasMany(models.EventAttendee, {
+                foreignKey: 'userId'
+            });
         }
     }
     User.init({

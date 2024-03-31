@@ -2,10 +2,11 @@
 const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
-const { restoreUser } = require('../../utils/auth.js');
+const { restoreUser, requireAuth } = require('../../utils/auth.js');
 const groupsRouter = require('./groups.js');
 const venuesRouter = require('./venues.js');
 const eventsRouter = require('./events.js');
+const { deleteGroupImageByImageId, deleteEventImageByImageId } = require('../../utils/images.js');
 
 //* Middleware -----------------------------------------------------------------
 //* Connect restoreUser middleware to the API router
@@ -24,6 +25,10 @@ router.use('/groups', groupsRouter);
 router.use('/venues', venuesRouter);
 
 router.use('/events', eventsRouter);
+
+router.delete('/group-images/:imageId', requireAuth, deleteGroupImageByImageId);
+
+router.delete('/event-images/:imageId', requireAuth, deleteEventImageByImageId);
 
 router.post('/test', (req, res) => {
     res.json({ requestBody: req.body });

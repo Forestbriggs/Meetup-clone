@@ -150,22 +150,23 @@ const changeMembershipStatusByGroupId = async (req, res, next) => {
     }
 
     if (status === 'co-host' && req.user.id !== group.dataValues.organizerId) {
-        const err = new Error('Unauthorized');
-        err.title = 'Unauthorized';
-        err.errors = { message: 'Unauthorized' };
-        err.status = 401;
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = { message: 'Forbidden' };
+        err.status = 403;
         return next(err);
     }
 
     if (status === 'member' && req.user.id !== group.dataValues.organizerId) {
         if (group.dataValues.GroupMembers[0]?.dataValues.status !== 'co-host') {
-            const err = new Error('Unauthorized');
-            err.title = 'Unauthorized';
-            err.errors = { message: 'Unauthorized' };
-            err.status = 401;
+            const err = new Error('Forbidden');
+            err.title = 'Forbidden';
+            err.errors = { message: 'Forbidden' };
+            err.status = 403;
             return next(err);
         }
     }
+
     await userIsMember.update({
         status
     });
@@ -211,10 +212,10 @@ const deleteGroupMembershipByMemberId = async (req, res, next) => {
     }
 
     if (req.user.id !== group.organizerId && req.user.id !== memberPendingDelete.memberId) {
-        const err = new Error('Unauthorized');
-        err.title = 'Unauthorized';
-        err.errors = { message: 'Unauthorized' };
-        err.status = 401;
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = { message: 'Forbidden' };
+        err.status = 403;
         return next(err);
     }
 

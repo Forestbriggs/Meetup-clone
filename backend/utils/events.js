@@ -160,10 +160,10 @@ const createEventByGroupId = async (req, res, next) => {
     if (req.user.id !== group.organizerId) {
 
         if (group.GroupMembers[0]?.dataValues.status !== 'co-host') {
-            const err = new Error('Unauthorized');
-            err.title = 'Unauthorized';
-            err.errors = { message: 'Unauthorized' };
-            err.status = 401;
+            const err = new Error('Forbidden');
+            err.title = 'Forbidden';
+            err.errors = { message: 'Forbidden' };
+            err.status = 403;
             return next(err);
         }
     }
@@ -242,10 +242,10 @@ const addImageToEventByEventId = async (req, res, next) => {
 
         if (event.dataValues.Group.GroupMembers[0]?.dataValues.status !== 'co-host'
             && event.dataValues.EventAttendees[0]?.dataValues.status !== 'attending') {
-            const err = new Error('Unauthorized');
-            err.title = 'Unauthorized';
-            err.errors = { message: 'Unauthorized' };
-            err.status = 401;
+            const err = new Error('Forbidden');
+            err.title = 'Forbidden';
+            err.errors = { message: 'Forbidden' };
+            err.status = 403;
             return next(err);
         }
     }
@@ -294,10 +294,10 @@ const editEventById = async (req, res, next) => {
 
 
         if (event.dataValues.Group.GroupMembers[0]?.dataValues.status !== 'co-host') {
-            const err = new Error('Unauthorized');
-            err.title = 'Unauthorized';
-            err.errors = { message: 'Unauthorized' };
-            err.status = 401;
+            const err = new Error('Forbidden');
+            err.title = 'Forbidden';
+            err.errors = { message: 'Forbidden' };
+            err.status = 403;
             return next(err);
         }
     }
@@ -368,10 +368,10 @@ const deleteEventById = async (req, res, next) => {
     if (req.user.id !== event.dataValues.Group.dataValues.organizerId) {
 
         if (event.dataValues.Group.GroupMembers[0]?.dataValues.status !== 'co-host') {
-            const err = new Error('Unauthorized');
-            err.title = 'Unauthorized';
-            err.errors = { message: 'Unauthorized' };
-            err.status = 401;
+            const err = new Error('Forbidden');
+            err.title = 'Forbidden';
+            err.errors = { message: 'Forbidden' };
+            err.status = 403;
             return next(err);
         }
     };

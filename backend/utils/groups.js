@@ -149,10 +149,10 @@ const addGroupImage = async (req, res, next) => {
     }
 
     if (req.user.id !== group.organizerId) {
-        const err = new Error('Unauthorized');
-        err.title = 'Unauthorized';
-        err.errors = { message: 'Unauthorized' };
-        err.status = 401;
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = { message: 'Forbidden' };
+        err.status = 403;
         return next(err);
     }
 
@@ -179,10 +179,10 @@ const editGroupById = async (req, res, next) => {
     }
 
     if (req.user.id !== group.organizerId) {
-        const err = new Error('Unauthorized');
-        err.title = 'Unauthorized';
-        err.errors = { message: 'Unauthorized' };
-        err.status = 401;
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = { message: 'Forbidden' };
+        err.status = 403;
         return next(err);
     }
 
@@ -214,10 +214,10 @@ const deleteGroupById = async (req, res, next) => {
     }
 
     if (req.user.id !== group.organizerId) {
-        const err = new Error('Unauthorized');
-        err.title = 'Unauthorized';
-        err.errors = { message: 'Unauthorized' };
-        err.status = 401;
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = { message: 'Forbidden' };
+        err.status = 3;
         return next(err);
     }
 
@@ -253,10 +253,10 @@ const getAllVenuesByGroupId = async (req, res, next) => {
     if (req.user.id !== group.organizerId) {
 
         if (group.GroupMembers[0]?.dataValues.status !== 'co-host') {
-            const err = new Error('Unauthorized');
-            err.title = 'Unauthorized';
-            err.errors = { message: 'Unauthorized' };
-            err.status = 401;
+            const err = new Error('Forbidden');
+            err.title = 'Forbidden';
+            err.errors = { message: 'Forbidden' };
+            err.status = 403;
             return next(err);
         }
     }
@@ -294,10 +294,10 @@ const createVenueByGroupId = async (req, res, next) => {
     if (req.user.id !== group.organizerId) {
 
         if (group.GroupMembers[0]?.dataValues.status !== 'co-host') {
-            const err = new Error('Unauthorized');
-            err.title = 'Unauthorized';
-            err.errors = { message: 'Unauthorized' };
-            err.status = 401;
+            const err = new Error('Forbidden');
+            err.title = 'Forbidden';
+            err.errors = { message: 'Forbidden' };
+            err.status = 403;
             return next(err);
         }
     }
