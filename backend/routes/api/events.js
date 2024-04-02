@@ -69,6 +69,8 @@ const validateQueries = [
     check('name')
         .optional()
         .isString()
+        .not()
+        .isNumeric()
         .withMessage('Name must be a string'),
     check('type')
         .optional()
