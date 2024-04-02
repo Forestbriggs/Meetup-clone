@@ -11,17 +11,12 @@ const getAllEvents = async (req, res, next) => {
     if (Number.isNaN(page) || page > 10) page = 1;
     if (Number.isNaN(size) || size > 20) size = 20;
 
-    //TODO figure out startDate query
     const queries = {}
     if (name) queries.name = {
         [Op.like]: `%${name}%`
     }
     if (type) queries.type = type
-    // if (startDate) {
-    //     console.log(startDate)
-    //     queries.startDate = new Date(startDate).toISOString();
-    // }
-    // console.log(queries)
+    if (startDate) queries.startDate = startDate;
 
     const events = await Event.findAll({
         attributes: {

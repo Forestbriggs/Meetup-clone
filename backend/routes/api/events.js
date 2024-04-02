@@ -75,10 +75,10 @@ const validateQueries = [
         .optional()
         .isIn(['Online', 'In person'])
         .withMessage("Type must be 'Online' or 'In person'"),
-    // check('startDate')
-    //     .optional()
-    //     .custom((startDate))
-    //     .withMessage('Start date must be a valid datetime'),
+    check('startDate')
+        .optional()
+        .isISO8601()
+        .withMessage('Start date must be a valid datetime'),
     handleValidationErrors
 ];
 
