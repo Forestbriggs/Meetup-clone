@@ -40,7 +40,7 @@ module.exports = {
         }, options);
     },
     async down(queryInterface, Sequelize) {
-        options.table = 'GroupMembers';
+        options.tableName = 'GroupMembers';
         await queryInterface.dropTable(options);
     }
 };
