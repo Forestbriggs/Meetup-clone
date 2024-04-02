@@ -37,7 +37,7 @@ module.exports = {
                 allowNull: false
             },
             state: {
-                type: Sequelize.STRING(2),
+                type: Sequelize.STRING,
                 allowNull: false
             },
             organizerId: {
