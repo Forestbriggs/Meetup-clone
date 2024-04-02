@@ -37,7 +37,6 @@ const validateGroupBody = [
         .withMessage('City is required'),
     check('state')
         .exists({ checkFalsy: true })
-        .isLength({ min: 2, max: 2 })
         .withMessage('State is required'),
     handleValidationErrors
 ];

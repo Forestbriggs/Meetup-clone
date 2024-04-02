@@ -1,4 +1,5 @@
-const { Event, EventAttendee, User, GroupMember, Group } = require('../db/models');
+const { Event, EventAttendee, User, GroupMember, Group, Sequelize } = require('../db/models');
+const Op = Sequelize.Op
 
 const getAttendeesByEventId = async (req, res, next) => {
     const { eventId } = req.params;
@@ -74,7 +75,10 @@ const requestEventAttendanceByEventId = async (req, res, next) => {
             {
                 model: GroupMember,
                 where: {
-                    memberId: req.user.id
+                    memberId: req.user.id,
+                    status: {
+                        [Op.not]: 'pending'
+                    }
                 },
                 required: false
             }
