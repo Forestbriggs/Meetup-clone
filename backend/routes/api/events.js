@@ -57,7 +57,6 @@ const validateAttendanceBody = [
     handleValidationErrors
 ];
 
-//TODO figure out startDate validation
 const validateQueries = [
     check('page')
         .optional()
