@@ -52,7 +52,7 @@ module.exports = {
         }, options);
     },
     async down(queryInterface, Sequelize) {
-        options.table = 'Venues'
+        options.tableName = 'Venues'
         await queryInterface.dropTable(options);
     }
 };
