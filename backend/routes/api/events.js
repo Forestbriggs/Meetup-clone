@@ -53,7 +53,7 @@ const validateAttendanceBody = [
         .exists({ checkFalsy: true })
         .not()
         .isIn(['pending'])
-        .withMessage('Cannot change a attendance status to pending'),
+        .withMessage('Cannot change an attendance status to pending'),
     handleValidationErrors
 ];
 

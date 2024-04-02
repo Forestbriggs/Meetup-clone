@@ -217,7 +217,7 @@ const deleteGroupById = async (req, res, next) => {
         const err = new Error('Forbidden');
         err.title = 'Forbidden';
         err.errors = { message: 'Forbidden' };
-        err.status = 3;
+        err.status = 403;
         return next(err);
     }
 

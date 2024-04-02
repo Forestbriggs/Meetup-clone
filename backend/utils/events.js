@@ -57,7 +57,11 @@ const getAllEvents = async (req, res, next) => {
         return event;
     }))
 
-    return res.json({ Events: events });
+    return res.json({
+        Events: events,
+        page,
+        size: events.length
+    });
 };
 
 const getAllEventsByGroupId = async (req, res, next) => {
