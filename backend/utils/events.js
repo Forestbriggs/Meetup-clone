@@ -48,7 +48,11 @@ const getAllEvents = async (req, res, next) => {
     });
 
     await Promise.all(events.map(async (event) => {
-        event.dataValues.numAttending = await event.countUsers() + 1;
+        event.dataValues.numAttending = await event.countEventAttendees({
+            where: {
+                status: 'attending'
+            }
+        }) + 1;
         event.dataValues.previewImage = event.dataValues.EventImages[0]?.url || null;
         event.dataValues.startDate = formatDate(event.dataValues.startDate);
         event.dataValues.endDate = formatDate(event.dataValues.endDate);
@@ -104,7 +108,11 @@ const getAllEventsByGroupId = async (req, res, next) => {
     });
 
     await Promise.all(events.map(async (event) => {
-        event.dataValues.numAttending = await event.countUsers() + 1;
+        event.dataValues.numAttending = await event.countEventAttendees({
+            where: {
+                status: 'attending'
+            }
+        }) + 1;
         event.dataValues.previewImage = event.dataValues.EventImages[0]?.url || null;
         event.dataValues.startDate = formatDate(event.dataValues.startDate);
         event.dataValues.endDate = formatDate(event.dataValues.endDate);
@@ -153,7 +161,11 @@ const getEventDetailsByEventId = async (req, res, next) => {
         return next(err);
     }
 
-    event.dataValues.numAttending = await event.countUsers() + 1;
+    event.dataValues.numAttending = await event.countEventAttendees({
+        where: {
+            status: 'attending'
+        }
+    }) + 1;
     event.dataValues.startDate = formatDate(event.dataValues.startDate);
     event.dataValues.endDate = formatDate(event.dataValues.endDate);
 

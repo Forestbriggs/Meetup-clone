@@ -1,6 +1,7 @@
 //* /backend/utils/groups.js
-const { Group, User, GroupMember, GroupImage, Venue } = require('../db/models');
+const { Group, User, GroupMember, GroupImage, Venue, Sequelize } = require('../db/models');
 const { formatDate } = require('../utils/formatDate');
+const Op = Sequelize.Op;
 
 //* Route Functions ------------------------------------------------------------
 const getAllGroups = async (req, res, next) => {
@@ -17,7 +18,13 @@ const getAllGroups = async (req, res, next) => {
     });
 
     await Promise.all(groups.map(async (group) => {
-        group.dataValues.numMembers = await group.countUsers() + 1;
+        group.dataValues.numMembers = await group.countGroupMembers({
+            where: {
+                status: {
+                    [Op.in]: ['member', 'co-host']
+                }
+            }
+        }) + 1;
         group.dataValues.previewImage = group.dataValues.GroupImages[0]?.url || null;
         group.dataValues.createdAt = formatDate(group.dataValues.createdAt);
         group.dataValues.updatedAt = formatDate(group.dataValues.updatedAt);
@@ -69,7 +76,13 @@ const getCurrentUserGroups = async (req, res, next) => {
     let groups = orgGroups.concat(joinedGroups);
 
     groups = await Promise.all(groups.map(async (group) => {
-        group.dataValues.numMembers = await group.countUsers() + 1;
+        group.dataValues.numMembers = await group.countGroupMembers({
+            where: {
+                status: {
+                    [Op.in]: ['member', 'co-host']
+                }
+            }
+        }) + 1;
         group.dataValues.previewImage = group.dataValues.GroupImages[0]?.url || null;
         group.dataValues.createdAt = formatDate(group.dataValues.createdAt);
         group.dataValues.updatedAt = formatDate(group.dataValues.updatedAt);
@@ -106,7 +119,13 @@ const getGroupById = async (req, res, next) => {
         return next(err);
     }
 
-    group.dataValues.numMembers = await group.countUsers() + 1;
+    group.dataValues.numMembers = await group.countGroupMembers({
+        where: {
+            status: {
+                [Op.in]: ['member', 'co-host']
+            }
+        }
+    }) + 1;
     group.dataValues.createdAt = formatDate(group.dataValues.createdAt);
     group.dataValues.updatedAt = formatDate(group.dataValues.updatedAt);
 
