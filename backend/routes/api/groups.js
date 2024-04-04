@@ -27,7 +27,7 @@ const validateGroupBody = [
     check('type')
         .exists({ checkFalsy: true })
         .isIn(['Online', 'In person'])
-        .withMessage("Type must be 'online' or 'In person'"),
+        .withMessage("Type must be 'Online' or 'In person'"),
     check('private')
         .exists()
         .isBoolean()
