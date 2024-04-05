@@ -27,7 +27,7 @@ const validateEventBody = [
         .withMessage('Capacity must be an integer'),
     check('price')
         .exists()
-        .isFloat(true)
+        .isFloat({ min: 0 })
         .withMessage('Price is invalid'),
     check('description')
         .exists({ checkFalsy: true })
