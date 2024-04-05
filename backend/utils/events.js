@@ -8,8 +8,8 @@ const getAllEvents = async (req, res, next) => {
     page = parseInt(page);
     size = parseInt(size);
 
-    if (Number.isNaN(page) || page > 10) page = 1;
-    if (Number.isNaN(size) || size > 20) size = 20;
+    if (Number.isNaN(page)) page = 1;
+    if (Number.isNaN(size)) size = 20;
 
     const queries = {}
     if (name) queries.name = {

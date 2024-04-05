@@ -64,8 +64,8 @@ const validateQueries = [
         .withMessage('Page must be greater than or equal to 1'),
     check('size')
         .optional()
-        .isInt({ min: 1 })
-        .withMessage('Size must be greater than or equal to 1'),
+        .isInt({ min: 1, max: 20 })
+        .withMessage('Size must be between 1 and 20'),
     check('name')
         .optional()
         .isString()
