@@ -46,8 +46,8 @@ const deleteEventImageByImageId = async (req, res, next) => {
     const image = await EventImage.findByPk(imageId);
 
     if (!image) {
-        const err = new Error("Group Image couldn't be found");
-        err.title = "Couldn't find a Group Image with the specified id";
+        const err = new Error("Event Image couldn't be found");
+        err.title = "Couldn't find a Event Image with the specified id";
         err.status = 404;
         return next(err);
     }
