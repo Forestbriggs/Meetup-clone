@@ -16,7 +16,9 @@ const getAllEvents = async (req, res, next) => {
         [Op.like]: `%${name}%`
     }
     if (type) queries.type = type
-    if (startDate) queries.startDate = startDate;
+    if (startDate) queries.startDate = {
+        [Op.between]: [`${startDate} 00:00:00`, `${startDate} 23:59:59`]
+    }
 
     const events = await Event.findAll({
         attributes: {
@@ -64,7 +66,7 @@ const getAllEvents = async (req, res, next) => {
     return res.json({
         Events: events,
         page,
-        size: events.length
+        size
     });
 };
 
@@ -166,6 +168,7 @@ const getEventDetailsByEventId = async (req, res, next) => {
             status: 'attending'
         }
     }) + 1;
+    event.dataValues.price = event.dataValues.price.toFixed(2);
     event.dataValues.startDate = formatDate(event.dataValues.startDate);
     event.dataValues.endDate = formatDate(event.dataValues.endDate);
 
@@ -226,7 +229,7 @@ const createEventByGroupId = async (req, res, next) => {
         name,
         type,
         capacity,
-        price,
+        price: price.toFixed(2),
         description,
         startDate,
         endDate
@@ -360,7 +363,7 @@ const editEventById = async (req, res, next) => {
         name,
         type,
         capacity,
-        price,
+        price: price.toFixed(2),
         description,
         startDate,
         endDate
