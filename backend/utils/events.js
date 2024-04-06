@@ -20,8 +20,6 @@ const getAllEvents = async (req, res, next) => {
         [Op.between]: [`${startDate} 00:00:00`, `${startDate} 23:59:59`]
     }
 
-    console.log(queries)
-
     const events = await Event.findAll({
         attributes: {
             exclude: ['price', 'capacity', 'description', 'createdAt', 'updatedAt']
