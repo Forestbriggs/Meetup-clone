@@ -229,12 +229,13 @@ const createEventByGroupId = async (req, res, next) => {
         name,
         type,
         capacity,
-        price: price.toFixed(2),
+        price,
         description,
         startDate,
         endDate
     });
 
+    event.dataValues.price = event.dataValues.price.toFixed(2);
     event.dataValues.startDate = formatDate(event.dataValues.startDate);
     event.dataValues.endDate = formatDate(event.dataValues.endDate);
     delete event.dataValues.createdAt;
@@ -363,12 +364,13 @@ const editEventById = async (req, res, next) => {
         name,
         type,
         capacity,
-        price: price.toFixed(2),
+        price,
         description,
         startDate,
         endDate
     });
 
+    event.dataValues.price = event.dataValues.price.toFixed(2);
     event.dataValues.startDate = formatDate(event.dataValues.startDate);
     event.dataValues.endDate = formatDate(event.dataValues.endDate);
     delete event.dataValues.createdAt;
