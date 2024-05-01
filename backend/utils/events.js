@@ -1,4 +1,6 @@
-const { Event, Group, Venue, EventImage, GroupMember, EventAttendee, Sequelize } = require('../db/models');
+const { Event, Group, Venue, EventImage, GroupMember,
+    EventAttendee, Sequelize } = require('../db/models');
+
 const { formatDate } = require('../utils/formatDate');
 const Op = Sequelize.Op;
 
@@ -12,10 +14,13 @@ const getAllEvents = async (req, res, next) => {
     if (Number.isNaN(size)) size = 20;
 
     const queries = {}
+
     if (name) queries.name = {
         [Op.like]: `%${name}%`
     }
-    if (type) queries.type = type
+
+    if (type) queries.type = type;
+
     if (startDate) queries.startDate = {
         [Op.between]: [`${startDate} 00:00:00`, `${startDate} 23:59:59`]
     }

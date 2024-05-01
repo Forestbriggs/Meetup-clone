@@ -1,9 +1,13 @@
 const express = require('express');
 
 const { getAllEvents, getEventDetailsByEventId,
-    addImageToEventByEventId, editEventById, deleteEventById } = require('../../utils/events.js');
+    addImageToEventByEventId, editEventById,
+    deleteEventById } = require('../../utils/events.js');
+
 const { getAttendeesByEventId, requestEventAttendanceByEventId,
-    changeAttendanceStatusByEventId, deleteAttendanceByUserId } = require('../../utils/attendees.js');
+    changeAttendanceStatusByEventId,
+    deleteAttendanceByUserId } = require('../../utils/attendees.js');
+
 const { requireAuth } = require('../../utils/auth.js');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -85,13 +89,16 @@ const validateQueries = [
 
 //* Routes ---------------------------------------------------------------------
 
-router.delete('/:eventId/attendance/:userId', requireAuth, deleteAttendanceByUserId);
+router.delete('/:eventId/attendance/:userId', requireAuth,
+    deleteAttendanceByUserId);
 
 router.get('/:eventId/attendees', getAttendeesByEventId);
 
-router.post('/:eventId/attendance', requireAuth, requestEventAttendanceByEventId);
+router.post('/:eventId/attendance', requireAuth,
+    requestEventAttendanceByEventId);
 
-router.put('/:eventId/attendance', requireAuth, validateAttendanceBody, changeAttendanceStatusByEventId);
+router.put('/:eventId/attendance', requireAuth, validateAttendanceBody,
+    changeAttendanceStatusByEventId);
 
 router.post('/:eventId/images', requireAuth, addImageToEventByEventId);
 
