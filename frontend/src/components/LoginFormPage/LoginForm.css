@@ -1,0 +1,38 @@
+form {
+    border: 1px solid grey;
+    height: 30vh;
+    width: 30vw;
+    margin: 0 auto;
+    margin-top: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+form>label {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    font-size: large;
+}
+
+input {
+    padding-inline-start: 20px;
+    border-radius: .5rem;
+    border: 1px solid grey;
+    background-color: #141414;
+    height: 3vh;
+    width: 20vw;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #CD3761;
+    border-radius: .5rem;
+}
+
+button:hover {
+    background-color: #cd4061;
+}
