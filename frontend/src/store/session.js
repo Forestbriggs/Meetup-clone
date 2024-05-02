@@ -12,13 +12,22 @@ const setUser = (payload) => {
     }
 }
 
-const removeUser = () => {
+export const removeUser = () => {
     return {
         type: REMOVE_USER
     }
 }
 
+
 //*  Thunk action creators
+export const restoreUser = () => async dispatch => {
+    const res = await csrfFetch('/api/session');
+
+    const data = await res.json();
+    dispatch(setUser(data));
+    return res;
+}
+
 export const login = (credential, password) => async dispatch => {
     const res = await csrfFetch('/api/session', {
         method: 'POST',
@@ -27,6 +36,17 @@ export const login = (credential, password) => async dispatch => {
             password
         })
     });
+    const data = await res.json();
+    dispatch(setUser(data));
+    return res;
+}
+
+export const signup = payload => async dispatch => {
+    const res = await csrfFetch('/api/users', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    });
+
     const data = await res.json();
     dispatch(setUser(data));
     return res;
