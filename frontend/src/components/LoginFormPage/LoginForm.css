@@ -1,13 +1,19 @@
 form {
     border: 1px solid grey;
-    height: 30vh;
+    /* height: 30vh; */
+    padding: 20px 0px;
     width: 30vw;
     margin: 0 auto;
-    margin-top: 25vh;
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    gap: 10px;
+}
+
+form>h1 {
+    margin-bottom: 5px;
 }
 
 form>label {
@@ -27,12 +33,40 @@ input {
 }
 
 button {
+    margin-top: 20px;
     padding: 10px 20px;
     border: none;
     background-color: #CD3761;
     border-radius: .5rem;
 }
 
+.password-container {
+    /* width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; */
+    position: relative;
+}
+
+.password-container>i {
+    position: absolute;
+    right: 25px;
+    bottom: calc(25% - 1px);
+}
+
 button:hover {
     background-color: #cd4061;
+}
+
+.login-error-container {
+    height: 18px;
+    margin-bottom: 10px;
+}
+
+.errors {
+    font-size: 18px;
+    margin-top: 0;
+
+    color: rgb(244, 48, 48);
 }

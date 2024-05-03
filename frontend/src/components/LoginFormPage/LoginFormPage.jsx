@@ -28,6 +28,10 @@ const LoginFormPage = () => {
 
     return (
         <form onSubmit={handleSubmit}>
+            <h1>Login</h1>
+            <div className="login-error-container">
+                {errors.credential && <p className="errors">{errors.credential}</p>}
+            </div>
             <label>
                 Username / Email
                 <input
@@ -37,21 +41,21 @@ const LoginFormPage = () => {
                     required
                 />
             </label>
-
             <label>
                 Password
-                <input
-                    type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <i
-                    className={`fa-regular ${showPassword ? "fa-eye" : "fa-eye-slash"}`}
-                    onClick={() => setShowPassword(!showPassword)}
-                ></i>
+                <div className="password-container">
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <i
+                        className={`fa-regular ${showPassword ? "fa-eye" : "fa-eye-slash"}`}
+                        onClick={() => setShowPassword(!showPassword)}
+                    ></i>
+                </div>
             </label>
-            {errors.credential && <p>{errors.credential}</p>}
             <button
                 type="submit"
             >

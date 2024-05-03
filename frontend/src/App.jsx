@@ -1,12 +1,13 @@
 import { useDispatch } from "react-redux";
-import LoginFormPage from "./components/LoginFormPage/LoginFormPage";
+import LoginFormPage from "./components/LoginFormPage";
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { restoreUser } from "./store/session";
+import SignupFormPage from "./components/SignupFormPage";
 
 function Layout() {
     const dispatch = useDispatch();
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(true);
 
     useEffect(() => {
         dispatch(restoreUser()).then(() => {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
                 path: 'login',
                 element: <LoginFormPage />
             },
+            {
+                path: 'signup',
+                element: <SignupFormPage />
+            }
         ]
     }
 ])

@@ -1,0 +1,10 @@
+.signup-error-holder {
+    height: 14px;
+
+}
+
+.signup-errors {
+    margin-top: 2px;
+    color: rgb(244, 48, 48);
+    font-size: 14px;
+}
