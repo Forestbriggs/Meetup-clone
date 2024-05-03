@@ -1,0 +1,13 @@
+.NavBar {
+    display: flex;
+    align-items: center;
+}
+
+.NavBar>button {
+    margin-top: 0;
+}
+
+#profile-pic {
+    height: 50px;
+    width: 50px;
+}
