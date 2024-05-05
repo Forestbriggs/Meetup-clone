@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { restoreUser } from "./store/session";
 import Navigation from "./components/Navigation/Navigation";
-import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 
 
@@ -36,10 +35,6 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <h1>Welcome!</h1>
-            },
-            {
-                path: 'login',
-                element: <LoginFormPage />
             },
             {
                 path: 'signup',

@@ -1,7 +1,9 @@
-import { NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Navigation.css';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import OpenModalButton from '../OpenModalButton';
+import LoginFormModal from '../LoginFormModal';
 
 export default function Navigation() {
     const sessionUser = useSelector(state => state.session.user);
@@ -24,7 +26,10 @@ export default function Navigation() {
                     //* Renders when not logged in
                 }
                 {!sessionUser && <>
-                    <NavLink to="login">Login</NavLink>
+                    <OpenModalButton
+                        buttonText={"Log In"}
+                        modalComponent={<LoginFormModal />}
+                    />
                     <button
                         className='signup-button'
                         onClick={handleClick}

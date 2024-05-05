@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import Modal, { ModalProvider } from './context/Modal';
 import { Provider } from 'react-redux';
 import App from './App';
 import './index.css';
@@ -19,8 +20,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <Provider store={store}>
-            <App />
-        </Provider>
+        <ModalProvider>
+            <Provider store={store}>
+                <App />
+                <Modal />
+            </Provider>
+        </ModalProvider>
     </React.StrictMode>
 );
