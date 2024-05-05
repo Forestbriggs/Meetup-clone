@@ -4,14 +4,12 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
 
 export default function Navigation() {
     const sessionUser = useSelector(state => state.session.user);
-    const navigate = useNavigate();
 
-    const handleClick = () => {
-        return navigate('/signup')
-    }
+    const navigate = useNavigate();
 
     const handleNameClick = () => {
         return navigate('/')
@@ -30,12 +28,10 @@ export default function Navigation() {
                         buttonText={"Log In"}
                         modalComponent={<LoginFormModal />}
                     />
-                    <button
-                        className='signup-button'
-                        onClick={handleClick}
-                    >
-                        Sign Up
-                    </button>
+                    <OpenModalButton
+                        buttonText="Sign Up"
+                        modalComponent={<SignupFormModal />}
+                    />
                 </>}
 
                 {
