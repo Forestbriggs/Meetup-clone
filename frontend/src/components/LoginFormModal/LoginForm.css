@@ -27,8 +27,9 @@ input {
     border-radius: .5rem;
     border: 1px solid grey;
     background-color: #141414;
-    height: 3vh;
+    height: 24px;
     width: 20vw;
+    margin-top: 2px;
 }
 
 form>button {
@@ -40,11 +41,6 @@ form>button {
 }
 
 .password-container {
-    /* width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px; */
     position: relative;
 }
 

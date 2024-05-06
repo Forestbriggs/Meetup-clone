@@ -8,6 +8,10 @@ export default function OpenModalButton({
 }) {
     const { setModalContent, setOnModalClose } = useModal();
 
+    let className = "";
+    if (buttonText === 'Sign Up') className = 'signup-button';
+    if (buttonText === 'Log In') className = 'login-button'
+
     const handleClick = () => {
         if (onModalClose) setOnModalClose(onModalClose);
         setModalContent(modalComponent)
@@ -16,6 +20,7 @@ export default function OpenModalButton({
 
     return (
         <button
+            className={className}
             onClick={handleClick}
         >
             {buttonText}
