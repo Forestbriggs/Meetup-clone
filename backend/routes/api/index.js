@@ -30,8 +30,4 @@ router.delete('/group-images/:imageId', requireAuth, deleteGroupImageByImageId);
 
 router.delete('/event-images/:imageId', requireAuth, deleteEventImageByImageId);
 
-router.post('/test', (req, res) => {
-    res.json({ requestBody: req.body });
-});
-
 module.exports = router;

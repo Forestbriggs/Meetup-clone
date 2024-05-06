@@ -68,7 +68,7 @@ app.use((_req, _res, next) => {
 
 // * Process sequelize errors
 app.use((err, _req, _res, next) => {
-    // check if error is a Sequelize error:
+    //* check if error is a Sequelize error:
     if (err instanceof ValidationError) {
         let errors = {};
         for (let error of err.errors) {
