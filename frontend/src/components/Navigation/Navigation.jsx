@@ -16,7 +16,10 @@ export default function Navigation() {
     }
 
     return (
-        <ul className='nav-container'>
+        <ul
+            className='nav-container'
+            style={{ borderBottom: `${sessionUser ? '1px solid lightgray' : ''}` }}
+        >
             <span onClick={handleNameClick}>Grand Line Gatherings</span>
             <nav className='NavBar'>
                 <NavLink to="/">Home</NavLink>
