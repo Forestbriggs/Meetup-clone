@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { getAllGroups } from "../../store/groups";
+import { getAllGroups, selectGroupsArray } from "../../store/groups";
 
 export default function GroupsListPage() {
     const dispatch = useDispatch();
 
-    //TODO implement createSelector for this
-    const groups = useSelector(state => Object.values(state.groups.byId));
+    const groups = useSelector(selectGroupsArray);
     useEffect(() => {
         dispatch(getAllGroups())
     }, [dispatch])

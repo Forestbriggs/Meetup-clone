@@ -5,7 +5,7 @@ import { restoreUser } from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import GroupsListPage from "./components/GroupsListPage";
-
+import GroupDetailsPage from "./components/GroupDetailsPage";
 
 function Layout() {
     const dispatch = useDispatch();
@@ -39,7 +39,15 @@ const router = createBrowserRouter([
             },
             {
                 path: 'groups',
-                element: <GroupsListPage />
+                element: <GroupsListPage />,
+            },
+            {
+                path: 'groups/:groupId',
+                element: <GroupDetailsPage />
+            },
+            {
+                path: '*',
+                element: <h1>Page Not Found</h1>
             }
         ]
     }
