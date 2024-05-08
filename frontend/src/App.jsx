@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { restoreUser } from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
-import GroupsListPage from "./components/GroupsListPage";
+import ListPage from "./components/ListPage";
 import GroupDetailsPage from "./components/GroupDetailsPage";
 
 function Layout() {
@@ -39,11 +39,20 @@ const router = createBrowserRouter([
             },
             {
                 path: 'groups',
-                element: <GroupsListPage />,
+                children: [
+                    {
+                        index: true,
+                        element: <ListPage type="groups" />,
+                    },
+                    {
+                        path: ':groupId',
+                        element: <GroupDetailsPage />,
+                    },
+                ]
             },
             {
-                path: 'groups/:groupId',
-                element: <GroupDetailsPage />
+                path: 'events',
+                element: <ListPage type="events" />
             },
             {
                 path: '*',

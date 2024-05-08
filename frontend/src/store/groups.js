@@ -43,25 +43,21 @@ export const selectGroupsArray = createSelector(selectGroups, (groups) => {
     return (Object.values(groups));
 })
 
-export const selectCurrentGroup = state => state.groups.currentGroup;
+export const selectGroupById = (id) => state => state.groups.byId[id];
 
 //* Reducer
 const initialState = {
     byId: {},
-    allIds: [],
-    currentGroup: null
+    allIds: []
 }
 
 const groupsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_GROUPS: {
-            // const newState = { byid: { ...byId }, allIds: [...allIds] }
-            const byId = action.payload.reduce((acc, group) => {
-                return { ...acc, [group.id]: group }
-            }, {})
-            const newState = { byId, allIds: [] };
+            const newState = { byId: {}, allIds: [] };
 
             action.payload.forEach(group => {
+                newState.byId[group.id] = group
                 newState.allIds.push(group.id);
             });
 
@@ -69,11 +65,12 @@ const groupsReducer = (state = initialState, action) => {
         }
 
         case SET_CURRENT_GROUP:
+            console.log(state)
             return {
-                byId: { ...state.byId },
+                byId: { ...state.byId, [action.payload.id]: action.payload },
                 allIds: [...state.allIds],
-                currentGroup: action.payload
             }
+
 
         default:
             return state

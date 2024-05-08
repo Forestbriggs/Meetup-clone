@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { getAllGroups, selectGroupsArray } from "../../store/groups";
+import './GroupListPage.css';
+import GroupCard from "./GroupCard";
 
 export default function GroupsListPage() {
     const dispatch = useDispatch();
@@ -12,19 +14,14 @@ export default function GroupsListPage() {
 
     return (
         <>
-            <div>
-                <h1>Events</h1>
-                <h1>Groups</h1>
-            </div>
             <p>Groups in Grand Line Gatherings</p>
-            <div>
+            <div className="card-container">
                 {groups.map((group) => {
                     return (
-                        <div
+                        <GroupCard
                             key={group.id}
-                        >
-                            <h2>{group.name}</h2>
-                        </div>
+                            group={group}
+                        />
                     )
                 })}
             </div>

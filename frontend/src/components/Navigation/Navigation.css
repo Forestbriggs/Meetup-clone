@@ -1,11 +1,15 @@
 .nav-container {
+    margin: 0;
+    position: sticky;
+    top: 0;
+    background-color: #1d1d1d;
     border-bottom: 1px solid lightgray;
     display: flex;
     align-items: center;
     justify-content: space-between;
     max-height: 35.5px;
     padding-bottom: 10px;
-    margin-top: 12px;
+    padding-top: 12px;
 }
 
 .nav-container>span {
@@ -102,6 +106,9 @@
 }
 
 @media (prefers-color-scheme: light) {
+    .nav-container {
+        background-color: white;
+    }
 
     .NavBar>a,
     .login-button {
