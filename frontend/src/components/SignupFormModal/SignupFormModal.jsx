@@ -120,8 +120,14 @@ export default function SignupFormModal() {
             </label>
             <button
                 type='submit'
-                disabled={username.length < 4 ||
-                    password.length < 6}
+                disabled={
+                    username.length < 4 ||
+                    password.length < 6 ||
+                    firstName.length < 1 ||
+                    lastName.length < 1 ||
+                    email.length < 1 ||
+                    password !== confirmPassword
+                }
             >
                 Sign Up
             </button>

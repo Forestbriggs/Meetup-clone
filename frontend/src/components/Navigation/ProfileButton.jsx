@@ -47,8 +47,9 @@ export default function ProfileButton({ user }) {
                 {showMenu ? <RxCaretUp /> : <RxCaretDown />}
             </button>
             <ul className={ulClassName} ref={ulRef}>
-                <li>{user.username}</li>
-                <li>{user.firstName} {user.lastName}</li>
+                <li>Hello, {user.firstName}</li>
+                {/* <li>{user.username}</li>
+                <li>{user.firstName} {user.lastName}</li> */}
                 <li>{user.email}</li>
                 <li className="logout-link" onClick={handleLogout}>Log Out</li >
             </ul >

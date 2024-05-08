@@ -64,6 +64,7 @@ const LoginFormModal = () => {
             </label>
             <button
                 type="submit"
+                disabled={credential.length < 4 || password.length < 6}
             >
                 Log In
             </button>
@@ -72,7 +73,7 @@ const LoginFormModal = () => {
                 id="demo-user-login"
                 onClick={handleDemoUserLogin}
             >
-                Demo User
+                Log in as Demo User
             </a>
         </form>
     )
