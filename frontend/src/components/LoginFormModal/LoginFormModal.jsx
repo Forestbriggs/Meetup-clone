@@ -26,6 +26,12 @@ const LoginFormModal = () => {
             )
     }
 
+    const handleDemoUserLogin = () => {
+        setErrors({});
+        return dispatch(login('Demo-lition', 'password'))
+            .then(closeModal);
+    }
+
     return (
         <form onSubmit={handleSubmit}>
             <h1>Login</h1>
@@ -61,6 +67,13 @@ const LoginFormModal = () => {
             >
                 Log In
             </button>
+
+            <a
+                id="demo-user-login"
+                onClick={handleDemoUserLogin}
+            >
+                Demo User
+            </a>
         </form>
     )
 }

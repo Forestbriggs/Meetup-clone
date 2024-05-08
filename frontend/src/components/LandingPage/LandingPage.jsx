@@ -41,7 +41,7 @@ export default function LandingPage() {
                         disabled={disabled}
                     />
                 </div>
-                <OpenModalButton modalComponent={<SignupFormModal />} buttonText="Join Grand Line Gatherings" />
+                {!sessionUser && <OpenModalButton modalComponent={<SignupFormModal />} buttonText="Join Grand Line Gatherings" />}
             </div>
         </div>
     )

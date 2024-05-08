@@ -72,6 +72,13 @@ form>button:hover {
     color: rgb(244, 48, 48);
 }
 
+#demo-user-login {
+    color: teal;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+}
+
 @media (prefers-color-scheme: light) {
     form {
         background-color: white;
