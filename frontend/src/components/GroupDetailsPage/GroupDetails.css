@@ -77,6 +77,25 @@
     gap: 40px;
 }
 
+.manage-group-button__container {
+    display: flex;
+    gap: 10px;
+}
+
+.manage-group-button__container>button {
+    background-color: gray;
+    width: auto;
+}
+
+.manage-group-button__container>button:hover {
+    background-color: rgb(109, 108, 108);
+}
+
+.group-bottom__container {
+    width: clamp(600px, 1000px, 90vw);
+    margin: 0 auto;
+}
+
 @media (prefers-color-scheme: light) {
     .group-header button {
         color: white;

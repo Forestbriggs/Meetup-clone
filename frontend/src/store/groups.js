@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
 //* Constants to avoid typos in action type
 const SET_GROUPS = 'groups/setGroups';
 const SET_CURRENT_GROUP = 'groups/setCurrentGroup';
+const SET_GROUP_EVENTS = 'groups/setGroupEvents';
 
 //* Normal action creators
 const setGroups = (payload) => {
@@ -16,6 +17,13 @@ const setGroups = (payload) => {
 const setCurrentGroup = (payload) => {
     return {
         type: SET_CURRENT_GROUP,
+        payload
+    }
+}
+
+const setGroupEvents = (payload) => {
+    return {
+        type: SET_GROUP_EVENTS,
         payload
     }
 }
@@ -34,6 +42,14 @@ export const getGroupById = (groupId) => async dispatch => {
 
     const data = await res.json();
     dispatch(setCurrentGroup(data));
+    return res;
+}
+
+export const getGroupEventsById = (groupId) => async dispatch => {
+    const res = await csrfFetch(`/api/groups/${groupId}/events`);
+
+    const data = await res.json();
+    dispatch(setGroupEvents({ data, groupId }));
     return res;
 }
 
@@ -64,12 +80,31 @@ const groupsReducer = (state = initialState, action) => {
             return newState;
         }
 
-        case SET_CURRENT_GROUP:
-            console.log(state)
-            return {
-                byId: { ...state.byId, [action.payload.id]: action.payload },
-                allIds: [...state.allIds],
+        case SET_CURRENT_GROUP: {
+            const newState = {
+                byId: { ...state.byId, [action.payload.id]: { ...state.byId[action.payload.id], ...action.payload } },
+                allIds: [...state.allIds]
             }
+            if (!state.allIds.includes(action.payload.id)) {
+                newState.allIds.push(action.payload.id);
+            }
+            return newState;
+        }
+
+        case SET_GROUP_EVENTS: {
+            const newState = {
+                byId: {
+                    ...state.byId,
+                    [action.payload.groupId]: { ...state.byId[action.payload.groupId], ...action.payload.data }
+                },
+                allIds: [...state.allIds]
+            }
+            if (!state.allIds.includes(Number(action.payload.groupId))) {
+                newState.allIds.push(action.payload.groupId);
+            }
+
+            return newState;
+        }
 
 
         default:
