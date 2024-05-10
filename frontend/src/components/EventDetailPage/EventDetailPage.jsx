@@ -121,13 +121,13 @@ export default function EventDetailPage() {
                                             <AiOutlineDollarCircle />
                                             <p>{event.price > 0 ? `$${event.price}` : 'FREE'}</p>
                                         </div>
-                                        <div className={sessionUser.id === group.Organizer.id ?
+                                        <div className={sessionUser && sessionUser.id === group?.Organizer.id ?
                                             'loc-manage__container' : ''}>
                                             <div className="location">
                                                 <FaMapPin />
                                                 <p>{event.type}</p>
                                             </div>
-                                            {sessionUser.id === group.Organizer.id &&
+                                            {sessionUser && sessionUser.id === group.Organizer.id &&
                                                 <div id="manage-event-buttons">
                                                     <button
                                                         onClick={handleUpdate}
