@@ -1,0 +1,31 @@
+#ListPage {
+    /* border: 1px solid red; */
+    width: clamp(400px, 800px, 50vw);
+    margin: 0 auto;
+}
+
+#search-header {
+    display: flex;
+    gap: 20px;
+}
+
+#search-header>a {
+    /* border: 1px solid red; */
+    color: lightgrey;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+#search-header>.active {
+    color: teal;
+    text-decoration: underline;
+    cursor: default;
+}
+
+@media (prefers-color-scheme: light) {
+    #search-header>a {
+        color: gray;
+    }
+}

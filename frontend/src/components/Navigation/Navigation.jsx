@@ -16,7 +16,9 @@ export default function Navigation() {
     }
 
     return (
-        <ul className='nav-container'>
+        <ul
+            className='nav-container'
+        >
             <span onClick={handleNameClick}>Grand Line Gatherings</span>
             <nav className='NavBar'>
                 <NavLink to="/">Home</NavLink>
@@ -27,6 +29,10 @@ export default function Navigation() {
                     <OpenModalButton
                         buttonText={"Log In"}
                         modalComponent={<LoginFormModal />}
+                        onModalClose={() => () => {
+                            console.log('here');
+                            navigate('/')
+                        }}
                     />
                     <OpenModalButton
                         buttonText="Sign Up"

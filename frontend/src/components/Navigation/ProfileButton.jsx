@@ -1,11 +1,13 @@
 import { FaUserCircle } from "react-icons/fa";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { logout } from "../../store/session";
 import { useEffect, useRef, useState } from "react";
 
 export default function ProfileButton({ user }) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
 
@@ -31,6 +33,7 @@ export default function ProfileButton({ user }) {
     const handleLogout = (e) => {
         e.preventDefault();
         dispatch(logout());
+        navigate('/');
     }
 
     const ulClassName = "profile-dropdown " + (showMenu ? "" : "hidden")
@@ -44,8 +47,9 @@ export default function ProfileButton({ user }) {
                 {showMenu ? <RxCaretUp /> : <RxCaretDown />}
             </button>
             <ul className={ulClassName} ref={ulRef}>
-                <li>{user.username}</li>
-                <li>{user.firstName} {user.lastName}</li>
+                <li>Hello, {user.firstName}</li>
+                {/* <li>{user.username}</li>
+                <li>{user.firstName} {user.lastName}</li> */}
                 <li>{user.email}</li>
                 <li className="logout-link" onClick={handleLogout}>Log Out</li >
             </ul >

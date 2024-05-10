@@ -3,6 +3,7 @@ import { login } from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import './LoginForm.css';
+import { useNavigate } from "react-router-dom";
 
 const LoginFormModal = () => {
     const dispatch = useDispatch();
@@ -24,6 +25,12 @@ const LoginFormModal = () => {
                     if (data?.errors) setErrors(data.errors);
                 }
             )
+    }
+
+    const handleDemoUserLogin = () => {
+        setErrors({});
+        return dispatch(login('Demo-lition', 'password'))
+            .then(closeModal);
     }
 
     return (
@@ -58,9 +65,17 @@ const LoginFormModal = () => {
             </label>
             <button
                 type="submit"
+                disabled={credential.length < 4 || password.length < 6}
             >
                 Log In
             </button>
+
+            <a
+                id="demo-user-login"
+                onClick={handleDemoUserLogin}
+            >
+                Log in as Demo User
+            </a>
         </form>
     )
 }

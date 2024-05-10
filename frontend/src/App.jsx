@@ -2,8 +2,11 @@ import { useDispatch } from "react-redux";
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { restoreUser } from "./store/session";
-import Navigation from "./components/Navigation/Navigation";
-
+import Navigation from "./components/Navigation";
+import LandingPage from "./components/LandingPage";
+import ListPage from "./components/ListPage";
+import GroupDetailsPage from "./components/GroupDetailsPage";
+import EventDetailPage from "./components/EventDetailPage";
 
 function Layout() {
     const dispatch = useDispatch();
@@ -33,8 +36,38 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <h1>Welcome!</h1>
+                element: <LandingPage />
             },
+            {
+                path: 'groups',
+                children: [
+                    {
+                        index: true,
+                        element: <ListPage type="groups" />,
+                    },
+                    {
+                        path: ':groupId',
+                        element: <GroupDetailsPage />,
+                    },
+                ]
+            },
+            {
+                path: 'events',
+                children: [
+                    {
+                        index: true,
+                        element: <ListPage type="events" />
+                    },
+                    {
+                        path: ':eventId',
+                        element: <EventDetailPage />
+                    }
+                ]
+            },
+            {
+                path: '*',
+                element: <h1>Page Not Found</h1>
+            }
         ]
     }
 ])

@@ -1,0 +1,80 @@
+#landing-page__top {
+    display: grid;
+    width: 70vw;
+    margin: 0 auto;
+    margin-top: 20px;
+    grid-template-columns: 1fr 1fr;
+    gap: 2vw;
+}
+
+#landing-page__top h1 {
+    font-size: 55px;
+}
+
+.main-image {
+    border: 1px solid black;
+    box-sizing: border-box;
+    height: 300px;
+    width: 34vw;
+}
+
+
+#landing-page__bottom {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#landing-page__bottom>p {
+    width: 30vw;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.cards__container {
+    display: grid;
+    grid-template-columns: repeat(3, 15vw);
+    gap: 3vw;
+    width: calc(15vw*3 + 3vw*2);
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.landing-page__card>a {
+    font-size: 20px;
+    color: teal;
+    text-decoration: none;
+}
+
+.landing-page__card>a.disabled {
+    color: gray;
+    cursor: default;
+}
+
+.landing-page__card>a:hover:not(.disabled) {
+    text-decoration: underline;
+}
+
+.landing-page__card>p {
+    margin-top: 5px;
+}
+
+.card-image {
+    border: 1px solid black;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200px;
+    margin-bottom: 3px;
+}
+
+#LandingPage button {
+    color: white;
+    padding: 10px 40px;
+    font-size: large;
+    font-weight: 600;
+    border: none;
+    border-radius: .5rem;
+    background-color: #1C656E;
+    cursor: pointer;
+    margin-bottom: 40px;
+}
