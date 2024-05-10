@@ -78,7 +78,21 @@
 }
 
 @media (prefers-color-scheme: light) {
-    .mini-group-card {
+
+    .mini-group-card,
+    #event-info-card {
         background-color: rgb(226, 226, 226);
+    }
+
+    #manage-event-buttons button {
+        color: white;
+        background-color: gray;
+        border: none;
+        border-radius: .5rem;
+        padding: 5px 10px;
+    }
+
+    #manage-event-buttons button:hover {
+        background-color: #727272;
     }
 }
