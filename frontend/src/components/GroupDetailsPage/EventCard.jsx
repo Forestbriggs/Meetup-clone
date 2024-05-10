@@ -2,8 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function EventCard({ event }) {
     const {
-        id, groupId, venueId, name, type, startDate,
-        endDate, numAttending, previewImage, Group, Venue, description } = event;
+        id, name, type, startDate, previewImage, Venue, description } = event;
 
     const navigate = useNavigate();
 
