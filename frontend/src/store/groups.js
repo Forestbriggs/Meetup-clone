@@ -70,11 +70,13 @@ const initialState = {
 const groupsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_GROUPS: {
-            const newState = { byId: {}, allIds: [] };
+            const newState = { byId: { ...state.byId }, allIds: [...state.allIds] };
 
             action.payload.forEach(group => {
-                newState.byId[group.id] = group
-                newState.allIds.push(group.id);
+                newState.byId[group.id] = { ...state.byId[group.id], ...group };
+                if (!newState.allIds.includes(group.id)) {
+                    newState.allIds.push(group.id);
+                }
             });
 
             return newState;

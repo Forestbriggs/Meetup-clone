@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getGroupById, getGroupEventsById, selectGroupById } from '../../store/groups';
 import { useEffect, useState } from 'react';
 import './GroupDetails.css';
+import EventCard from './EventCard';
 
 export default function GroupDetailsPage() {
     const { groupId } = useParams();
@@ -12,6 +13,8 @@ export default function GroupDetailsPage() {
     const sessionUser = useSelector(state => state.session.user)
     const group = useSelector(selectGroupById(groupId));
 
+
+    //* sort events by date - split by upcoming and past
     const upcomingEvents = [];
     const pastEvents = [];
     if (group?.Events) {
@@ -26,6 +29,26 @@ export default function GroupDetailsPage() {
         })
     }
 
+    upcomingEvents.sort((a, b) => {
+        return new Date(a.startDate) - new Date(b.startDate);
+    })
+
+    pastEvents.sort((a, b) => {
+        return new Date(b.startDate) - new Date(a.startDate);
+    })
+
+    //* check for previewImage
+    let previewImg;
+    if (group?.GroupImages) {
+        group.GroupImages.forEach((img) => {
+            if (img.preview) {
+                previewImg = img.url;
+                return;
+            }
+        })
+    }
+
+    //* Load group and group events
     useEffect(() => {
         dispatch(getGroupById(groupId)).then(() => {
             dispatch(getGroupEventsById(groupId));
@@ -36,6 +59,8 @@ export default function GroupDetailsPage() {
         return () => setIsLoaded(false);
     }, [dispatch, groupId])
 
+
+    //* Click events
     const handleBackClick = () => {
         navigate('..');
     }
@@ -63,7 +88,7 @@ export default function GroupDetailsPage() {
                     <div id='group-header__container'>
                         <div className="back-tracker" onClick={handleBackClick}><span>{'< '}</span><a>Groups</a></div>
                         <div className="group-header">
-                            <img src='/images/placeholder.jpeg' alt="group-image" />
+                            <img src={group.previewImage ? `${group.previewImage}` : previewImg ? `${previewImg}` : '/images/placeholder.jpeg'} alt="group-image" />
                             <div>
                                 <div>
                                     <h1>{group.name}</h1>
@@ -100,8 +125,22 @@ export default function GroupDetailsPage() {
                             <h2>What we&apos;re about</h2>
                             <article>{group.about}</article>
                         </div>
-                        {upcomingEvents.length > 0 && <h1>Upcoming</h1>}
-                        {pastEvents.length > 0 && <h1>Past Events</h1>}
+                        {upcomingEvents.length > 0 && <div id='upcoming-events'>
+                            <h2>Upcoming Events ({upcomingEvents.length})</h2>
+                            <div className='event-card__container'>
+                                {upcomingEvents.map((event) => {
+                                    return <EventCard key={event.id} event={event} />
+                                })}
+                            </div>
+                        </div>}
+                        {pastEvents.length > 0 && <div id='past-events'>
+                            <h2>Past Events ({pastEvents.length})</h2>
+                            <div className="event-card__container">
+                                {pastEvents.map((event) => {
+                                    return <EventCard key={event.id} event={event} />
+                                })}
+                            </div>
+                        </div>}
                     </div>
                 </div>
             </>}

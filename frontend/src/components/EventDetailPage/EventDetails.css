@@ -1,0 +1,84 @@
+#event-header__container {
+    width: clamp(600px, 1000px, 90vw);
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.back-tracker {
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+#event-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+#event-header>img {
+    height: 330px;
+    border: 1px solid black;
+    border-radius: .5rem;
+    box-sizing: border-box;
+    aspect-ratio: 6/3.6;
+}
+
+#event-header>div {
+    height: 330px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mini-group-card {
+    background-color: #141414;
+    border: 1px solid grey;
+    border-radius: .5rem;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    cursor: pointer;
+}
+
+#event-info-card {
+    background-color: #141414;
+    border: 1px solid grey;
+    border-radius: .5rem;
+    padding: 20px;
+}
+
+#event-info-card>div,
+.location {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.loc-manage__container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#event-info-card svg {
+    font-size: 24px;
+}
+
+.times>* {
+    margin: 2px;
+}
+
+#manage-event-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#event-header>div img {
+    height: 90px;
+    aspect-ratio: 1/.6;
+}
+
+@media (prefers-color-scheme: light) {
+    .mini-group-card {
+        background-color: rgb(226, 226, 226);
+    }
+}

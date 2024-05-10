@@ -6,11 +6,12 @@ export default function GroupCard({ group }) {
     const handleClick = () => {
         navigate(`${group.id}`)
     }
+
     return (
         <div className="card" onClick={handleClick}>
             {group.previewImage &&
                 <img
-                    src={group.previewImage ? `url(${group.previewImage})` : '/images/placeholder.jpeg'}
+                    src={group.previewImage ? `${group.previewImage}` : '/images/placeholder.jpeg'}
                     height='100px'
                     width='180px'
                     alt="group-image" />

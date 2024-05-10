@@ -94,6 +94,34 @@
 .group-bottom__container {
     width: clamp(600px, 1000px, 90vw);
     margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.event-card__container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.event-card {
+    border: 1px solid gray;
+    border-radius: calc(.5rem);
+    height: 250px;
+    width: 550px;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.event-card__upper {
+    display: flex;
+    gap: 20px;
+}
+
+.event-card__upper img {
+    border: 1px solid gray;
+    border-radius: .3rem;
+    height: 140px;
+    width: 200px;
 }
 
 @media (prefers-color-scheme: light) {

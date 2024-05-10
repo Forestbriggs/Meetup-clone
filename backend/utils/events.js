@@ -27,7 +27,7 @@ const getAllEvents = async (req, res, next) => {
 
     const events = await Event.findAll({
         attributes: {
-            exclude: ['price', 'capacity', 'description', 'createdAt', 'updatedAt']
+            exclude: ['createdAt', 'updatedAt']
         },
         include: [
             {
@@ -92,7 +92,7 @@ const getAllEventsByGroupId = async (req, res, next) => {
             groupId
         },
         attributes: {
-            exclude: ['price', 'capacity', 'description', 'createdAt', 'updatedAt']
+            exclude: ['createdAt', 'updatedAt']
         },
         include: [
             {

@@ -29,6 +29,10 @@ export default function Navigation() {
                     <OpenModalButton
                         buttonText={"Log In"}
                         modalComponent={<LoginFormModal />}
+                        onModalClose={() => () => {
+                            console.log('here');
+                            navigate('/')
+                        }}
                     />
                     <OpenModalButton
                         buttonText="Sign Up"
