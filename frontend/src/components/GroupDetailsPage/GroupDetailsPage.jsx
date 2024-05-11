@@ -141,6 +141,9 @@ export default function GroupDetailsPage() {
                                 })}
                             </div>
                         </div>}
+                        {upcomingEvents.length === 0 && pastEvents.length === 0 &&
+                            <h2>No Upcoming Events</h2>
+                        }
                     </div>
                 </div>
             </>}
