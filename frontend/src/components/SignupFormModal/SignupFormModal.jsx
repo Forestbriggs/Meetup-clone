@@ -44,7 +44,7 @@ export default function SignupFormModal() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className='login-signup-form' onSubmit={handleSubmit}>
             <h1>Sign Up</h1>
             <label>
                 First Name

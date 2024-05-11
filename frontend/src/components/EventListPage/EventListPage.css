@@ -1,0 +1,14 @@
+.card-container {
+    --card-width: clamp(400px, 800px, 50vw);
+    width: var(--card-width);
+}
+
+/** Override css rules defined for GroupDetailPage EventCards */
+.card-container>* {
+    border: none !important;
+    border-radius: 0 !important;
+    border-top: 1px solid gray !important;
+    padding: 20px 0 !important;
+    height: auto !important;
+    width: 100% !important;
+}

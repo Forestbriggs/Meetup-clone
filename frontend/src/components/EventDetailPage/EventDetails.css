@@ -72,6 +72,10 @@
     gap: 10px;
 }
 
+#manage-event-buttons>* {
+    cursor: pointer;
+}
+
 #event-header>div img {
     height: 90px;
     aspect-ratio: 1/.6;

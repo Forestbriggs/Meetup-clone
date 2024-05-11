@@ -91,7 +91,7 @@ export default function EventDetailPage() {
                         </div>
                         <div className="event-header">
                             <h1>{event.name}</h1>
-                            <p>Hosted by: {group?.Organizer.firstName} {group?.Organizer.lastName}</p>
+                            <p>Hosted by: {group?.Organizer?.firstName} {group?.Organizer?.lastName}</p>
                             <div id="event-header">
                                 <img src={event.previewImage ? `${event.previewImage}` :
                                     eventPreviewImg ? `${eventPreviewImg}` :
@@ -121,13 +121,13 @@ export default function EventDetailPage() {
                                             <AiOutlineDollarCircle />
                                             <p>{event.price > 0 ? `$${event.price}` : 'FREE'}</p>
                                         </div>
-                                        <div className={sessionUser && sessionUser.id === group?.Organizer.id ?
+                                        <div className={sessionUser && sessionUser?.id === group?.Organizer?.id ?
                                             'loc-manage__container' : ''}>
                                             <div className="location">
                                                 <FaMapPin />
                                                 <p>{event.type}</p>
                                             </div>
-                                            {sessionUser && sessionUser.id === group.Organizer.id &&
+                                            {sessionUser && sessionUser?.id === group.Organizer?.id &&
                                                 <div id="manage-event-buttons">
                                                     <button
                                                         onClick={handleUpdate}

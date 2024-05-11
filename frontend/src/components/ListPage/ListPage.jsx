@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import GroupsListPage from "../GroupsListPage";
 import './ListPage.css';
+import EventListPage from '../EventListPage';
 
 export default function ListPage({ type }) {
     window.scrollTo({ top: 0 })
@@ -17,7 +18,7 @@ export default function ListPage({ type }) {
                     to="/groups"
                 >Groups</NavLink>
             </div>
-            {type === 'groups' ? <GroupsListPage /> : <h1>events</h1>}
+            {type === 'groups' ? <GroupsListPage /> : <EventListPage />}
         </div >
     )
 }

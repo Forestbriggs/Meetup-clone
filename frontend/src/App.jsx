@@ -7,6 +7,7 @@ import LandingPage from "./components/LandingPage";
 import ListPage from "./components/ListPage";
 import GroupDetailsPage from "./components/GroupDetailsPage";
 import EventDetailPage from "./components/EventDetailPage";
+import GroupForm from "./components/GroupForm";
 
 function Layout() {
     const dispatch = useDispatch();
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
                         path: ':groupId',
                         element: <GroupDetailsPage />,
                     },
+                    {
+                        path: 'new',
+                        element: <GroupForm />
+                    }
                 ]
             },
             {

@@ -37,10 +37,37 @@ export const getEventDetailsById = (eventId) => async dispatch => {
     return res;
 }
 
+// export const createEvent = () => async dispatch => {
+
+// }
+
 //* Selectors
 const selectEvents = state => state.events.byId
 export const selectEventsArray = createSelector(selectEvents, (events) => {
     return Object.values(events);
+})
+
+export const selectOrderedEventsArray = createSelector(selectEvents, (events) => {
+    const upcoming = [];
+    const past = [];
+
+    const now = new Date();
+    Object.values(events).forEach((event) => {
+        const startDate = new Date(event.startDate);
+        if (startDate >= now) {
+            upcoming.push(event);
+        } else {
+            past.push(event);
+        }
+    });
+    upcoming.sort((a, b) => {
+        return new Date(a.startDate) - new Date(b.startDate);
+    });
+    past.sort((a, b) => {
+        return new Date(b.startDate) - new Date(a.startDate);
+    });
+
+    return { upcoming, past };
 })
 
 export const selectEventById = id => state => state.events.byId[id];

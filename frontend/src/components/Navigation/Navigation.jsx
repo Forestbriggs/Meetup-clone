@@ -21,7 +21,6 @@ export default function Navigation() {
         >
             <span onClick={handleNameClick}>Grand Line Gatherings</span>
             <nav className='NavBar'>
-                <NavLink to="/">Home</NavLink>
                 {
                     //* Renders when not logged in
                 }
@@ -44,6 +43,7 @@ export default function Navigation() {
                     //* Renders when logged in
                 }
                 {sessionUser && <>
+                    <NavLink to="/groups/new">Start a new group</NavLink>
                     <ProfileButton user={sessionUser} />
                 </>}
             </nav>
