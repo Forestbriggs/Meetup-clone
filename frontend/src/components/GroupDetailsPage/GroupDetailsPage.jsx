@@ -4,6 +4,8 @@ import { getGroupById, getGroupEventsById, selectGroupById } from '../../store/g
 import { useEffect, useState } from 'react';
 import './GroupDetails.css';
 import EventCard from './EventCard';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import DeleteGroupModal from './DeleteGroupModal';
 
 export default function GroupDetailsPage() {
     const { groupId } = useParams();
@@ -108,9 +110,11 @@ export default function GroupDetailsPage() {
                                     <button
                                         onClick={handleUpdate}
                                     >Update</button>
-                                    <button
-                                        onClick={handleDelete}
-                                    >Delete</button>
+                                    <OpenModalButton
+                                        buttonText={"Delete"}
+                                        modalComponent={<DeleteGroupModal />}
+                                    // onModalClose
+                                    />
                                 </div>}
                             </div>
                         </div>

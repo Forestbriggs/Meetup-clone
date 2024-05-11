@@ -47,3 +47,13 @@
 .errors {
     font-size: 14px;
 }
+
+@media (prefers-color-scheme: light) {
+    .form-container textarea {
+        background-color: #ffffff;
+    }
+
+    .group-button {
+        color: white;
+    }
+}

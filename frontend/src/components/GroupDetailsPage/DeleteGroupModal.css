@@ -1,0 +1,55 @@
+#DeleteGroupModal {
+    width: 350px;
+    background-color: #141414;
+    border: 1px solid grey;
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    h1 {
+        margin-bottom: 2px;
+    }
+
+    p {
+        margin-top: 2px;
+    }
+
+    button {
+        font-size: large;
+        font-weight: bold;
+        padding: 10px 50px;
+        border: none;
+        border-radius: .5rem;
+        cursor: pointer;
+        width: 90%;
+    }
+
+    .confirm {
+        background-color: #af0837;
+    }
+
+    .confirm:hover {
+        background-color: #870020;
+    }
+
+    .no {
+        background-color: #404040;
+        margin-bottom: 20px;
+    }
+
+    .no:hover {
+        background-color: #5a5959;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    #DeleteGroupModal {
+        background-color: lightgray;
+
+        button {
+            color: white;
+        }
+    }
+}

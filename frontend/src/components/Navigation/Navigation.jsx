@@ -29,7 +29,6 @@ export default function Navigation() {
                         buttonText={"Log In"}
                         modalComponent={<LoginFormModal />}
                         onModalClose={() => () => {
-                            console.log('here');
                             navigate('/')
                         }}
                     />
