@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import './LoginForm.css';
 
-const LoginFormModal = () => {
+const LoginFormModal = ({ navigateOnLogin }) => {
     const dispatch = useDispatch();
 
     const [credential, setCredential] = useState('');
@@ -17,7 +17,10 @@ const LoginFormModal = () => {
         e.preventDefault();
         setErrors({});
         return dispatch(login(credential, password))
-            .then(closeModal)
+            .then(() => {
+                closeModal();
+                return navigateOnLogin();
+            })
             .catch(
                 async (res) => {
                     const data = await res.json();
@@ -29,11 +32,14 @@ const LoginFormModal = () => {
     const handleDemoUserLogin = () => {
         setErrors({});
         return dispatch(login('Demo-lition', 'password'))
-            .then(closeModal);
+            .then(() => {
+                closeModal();
+                return navigateOnLogin();
+            });
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="login-signup-form" onSubmit={handleSubmit}>
             <h1>Login</h1>
             <div className="login-error-container">
                 {errors.credential && <p className="errors">{errors.credential}</p>}

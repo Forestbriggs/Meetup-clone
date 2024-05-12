@@ -38,6 +38,7 @@ export default function LandingPage() {
                         title="Start a new group"
                         text="Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                         image="/images/placeholder.jpeg"
+                        to="/groups/new"
                         disabled={disabled}
                     />
                 </div>

@@ -5,6 +5,8 @@ import { createSelector } from 'reselect';
 const SET_GROUPS = 'groups/setGroups';
 const SET_CURRENT_GROUP = 'groups/setCurrentGroup';
 const SET_GROUP_EVENTS = 'groups/setGroupEvents';
+const SET_GROUP_IMAGE = 'groups/setGroupImage';
+const REMOVE_GROUP = 'groups/removeGroup';
 
 //* Normal action creators
 const setGroups = (payload) => {
@@ -28,6 +30,21 @@ const setGroupEvents = (payload) => {
     }
 }
 
+const setGroupImage = (groupId, data) => {
+    return {
+        type: SET_GROUP_IMAGE,
+        groupId,
+        data
+    }
+}
+
+const removeGroup = (groupId) => {
+    return {
+        type: REMOVE_GROUP,
+        groupId
+    }
+}
+
 //*  Thunk action creators
 export const getAllGroups = () => async dispatch => {
     const res = await csrfFetch('/api/groups');
@@ -42,7 +59,7 @@ export const getGroupById = (groupId) => async dispatch => {
 
     const data = await res.json();
     dispatch(setCurrentGroup(data));
-    return res;
+    return data;
 }
 
 export const getGroupEventsById = (groupId) => async dispatch => {
@@ -50,6 +67,50 @@ export const getGroupEventsById = (groupId) => async dispatch => {
 
     const data = await res.json();
     dispatch(setGroupEvents({ data, groupId }));
+    return res;
+}
+
+export const editGroup = (groupId, payload) => async dispatch => {
+    const res = await csrfFetch(`/api/groups/${groupId}`, {
+        method: 'PUT',
+        body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    dispatch(setCurrentGroup(data));
+    return data;
+}
+
+export const createGroup = (payload) => async dispatch => {
+    const res = await csrfFetch('/api/groups/', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    dispatch(setCurrentGroup(data));
+    return data;
+}
+
+export const createGroupImage = (groupId, payload) => async dispatch => {
+    const res = await csrfFetch(`/api/groups/${groupId}/images`, {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    dispatch(setGroupImage(groupId, data));
+    return res;
+}
+
+export const deleteGroup = (groupId) => async dispatch => {
+    const res = await csrfFetch(`/api/groups/${groupId}`, {
+        method: 'DELETE'
+    })
+
+    if (res.ok) {
+        dispatch(removeGroup(groupId));
+    }
     return res;
 }
 
@@ -108,6 +169,27 @@ const groupsReducer = (state = initialState, action) => {
             return newState;
         }
 
+        case SET_GROUP_IMAGE: {
+            const newState = {
+                byId: { ...state.byId },
+                allIds: [...state.allIds]
+            }
+            newState.byId[action.groupId] = newState.byId[action.groupId] ?
+                { ...newState.byId[action.groupId] } : {};
+            newState.byId[action.groupId].GroupImages = [action.data]
+            return newState;
+        }
+
+        case REMOVE_GROUP: {
+            const newState = {
+                byId: { ...state.byId },
+                allIds: [...state.allIds]
+            }
+            delete newState.byId[action.groupId];
+            const index = newState.allIds.indexOf(action.groupId);
+            newState.allIds.splice(index, 1);
+            return newState;
+        }
 
         default:
             return state

@@ -4,6 +4,8 @@ import { getGroupById, getGroupEventsById, selectGroupById } from '../../store/g
 import { useEffect, useState } from 'react';
 import './GroupDetails.css';
 import EventCard from './EventCard';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import DeleteGroupModal from './DeleteGroupModal';
 
 export default function GroupDetailsPage() {
     const { groupId } = useParams();
@@ -74,11 +76,11 @@ export default function GroupDetailsPage() {
     }
 
     const handleUpdate = () => {
-        alert('Feature coming soon')
+        navigate('edit');
     }
 
-    const handleDelete = () => {
-        alert('Feature coming soon')
+    const navigateOnDelete = () => {
+        return navigate('/groups');
     }
 
     return (
@@ -108,9 +110,15 @@ export default function GroupDetailsPage() {
                                     <button
                                         onClick={handleUpdate}
                                     >Update</button>
-                                    <button
-                                        onClick={handleDelete}
-                                    >Delete</button>
+                                    <OpenModalButton
+                                        buttonText={"Delete"}
+                                        modalComponent={
+                                            <DeleteGroupModal
+                                                navigateOnDelete={navigateOnDelete}
+                                                groupId={groupId}
+                                            />
+                                        }
+                                    />
                                 </div>}
                             </div>
                         </div>
@@ -141,6 +149,9 @@ export default function GroupDetailsPage() {
                                 })}
                             </div>
                         </div>}
+                        {upcomingEvents.length === 0 && pastEvents.length === 0 &&
+                            <h2>No Upcoming Events</h2>
+                        }
                     </div>
                 </div>
             </>}

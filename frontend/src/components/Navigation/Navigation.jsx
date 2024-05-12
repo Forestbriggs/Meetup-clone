@@ -15,24 +15,23 @@ export default function Navigation() {
         return navigate('/')
     }
 
+    const navigateOnLogin = () => {
+        navigate('/');
+    }
+
     return (
         <ul
             className='nav-container'
         >
             <span onClick={handleNameClick}>Grand Line Gatherings</span>
             <nav className='NavBar'>
-                <NavLink to="/">Home</NavLink>
                 {
                     //* Renders when not logged in
                 }
                 {!sessionUser && <>
                     <OpenModalButton
                         buttonText={"Log In"}
-                        modalComponent={<LoginFormModal />}
-                        onModalClose={() => () => {
-                            console.log('here');
-                            navigate('/')
-                        }}
+                        modalComponent={<LoginFormModal navigateOnLogin={navigateOnLogin} />}
                     />
                     <OpenModalButton
                         buttonText="Sign Up"
@@ -44,6 +43,7 @@ export default function Navigation() {
                     //* Renders when logged in
                 }
                 {sessionUser && <>
+                    <NavLink to="/groups/new">Start a new group</NavLink>
                     <ProfileButton user={sessionUser} />
                 </>}
             </nav>

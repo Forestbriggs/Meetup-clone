@@ -24,8 +24,16 @@
     cursor: default;
 }
 
+.card-container>*:hover {
+    background-color: #141414;
+}
+
 @media (prefers-color-scheme: light) {
     #search-header>a {
         color: gray;
+    }
+
+    .card-container>*:hover {
+        background-color: lightgray;
     }
 }
