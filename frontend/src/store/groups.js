@@ -6,6 +6,7 @@ const SET_GROUPS = 'groups/setGroups';
 const SET_CURRENT_GROUP = 'groups/setCurrentGroup';
 const SET_GROUP_EVENTS = 'groups/setGroupEvents';
 const SET_GROUP_IMAGE = 'groups/setGroupImage';
+const REMOVE_GROUP = 'groups/removeGroup';
 
 //* Normal action creators
 const setGroups = (payload) => {
@@ -37,6 +38,13 @@ const setGroupImage = (groupId, data) => {
     }
 }
 
+const removeGroup = (groupId) => {
+    return {
+        type: REMOVE_GROUP,
+        groupId
+    }
+}
+
 //*  Thunk action creators
 export const getAllGroups = () => async dispatch => {
     const res = await csrfFetch('/api/groups');
@@ -51,7 +59,7 @@ export const getGroupById = (groupId) => async dispatch => {
 
     const data = await res.json();
     dispatch(setCurrentGroup(data));
-    return res;
+    return data;
 }
 
 export const getGroupEventsById = (groupId) => async dispatch => {
@@ -60,6 +68,17 @@ export const getGroupEventsById = (groupId) => async dispatch => {
     const data = await res.json();
     dispatch(setGroupEvents({ data, groupId }));
     return res;
+}
+
+export const editGroup = (groupId, payload) => async dispatch => {
+    const res = await csrfFetch(`/api/groups/${groupId}`, {
+        method: 'PUT',
+        body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    dispatch(setCurrentGroup(data));
+    return data;
 }
 
 export const createGroup = (payload) => async dispatch => {
@@ -81,6 +100,17 @@ export const createGroupImage = (groupId, payload) => async dispatch => {
 
     const data = await res.json();
     dispatch(setGroupImage(groupId, data));
+    return res;
+}
+
+export const deleteGroup = (groupId) => async dispatch => {
+    const res = await csrfFetch(`/api/groups/${groupId}`, {
+        method: 'DELETE'
+    })
+
+    if (res.ok) {
+        dispatch(removeGroup(groupId));
+    }
     return res;
 }
 
@@ -144,16 +174,22 @@ const groupsReducer = (state = initialState, action) => {
                 byId: { ...state.byId },
                 allIds: [...state.allIds]
             }
-            console.log(action.groupId);
-            console.log('new', newState)
             newState.byId[action.groupId] = newState.byId[action.groupId] ?
                 { ...newState.byId[action.groupId] } : {};
-            console.log('during', newState)
             newState.byId[action.groupId].GroupImages = [action.data]
-            console.log('after', newState)
             return newState;
         }
 
+        case REMOVE_GROUP: {
+            const newState = {
+                byId: { ...state.byId },
+                allIds: [...state.allIds]
+            }
+            delete newState.byId[action.groupId];
+            const index = newState.allIds.indexOf(action.groupId);
+            newState.allIds.splice(index, 1);
+            return newState;
+        }
 
         default:
             return state

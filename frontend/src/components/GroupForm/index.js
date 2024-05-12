@@ -1,3 +1,3 @@
-import GroupForm from "./GroupForm";
+import CreateGroupForm from "./CreateGroupForm";
 
-export default GroupForm;
+export default CreateGroupForm;

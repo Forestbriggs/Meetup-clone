@@ -15,6 +15,10 @@ export default function Navigation() {
         return navigate('/')
     }
 
+    const navigateOnLogin = () => {
+        navigate('/');
+    }
+
     return (
         <ul
             className='nav-container'
@@ -27,10 +31,7 @@ export default function Navigation() {
                 {!sessionUser && <>
                     <OpenModalButton
                         buttonText={"Log In"}
-                        modalComponent={<LoginFormModal />}
-                        onModalClose={() => () => {
-                            navigate('/')
-                        }}
+                        modalComponent={<LoginFormModal navigateOnLogin={navigateOnLogin} />}
                     />
                     <OpenModalButton
                         buttonText="Sign Up"

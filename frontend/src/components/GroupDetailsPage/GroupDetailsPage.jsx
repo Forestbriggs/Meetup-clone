@@ -76,11 +76,11 @@ export default function GroupDetailsPage() {
     }
 
     const handleUpdate = () => {
-        alert('Feature coming soon')
+        navigate('edit');
     }
 
-    const handleDelete = () => {
-        alert('Feature coming soon')
+    const navigateOnDelete = () => {
+        return navigate('/groups');
     }
 
     return (
@@ -112,8 +112,12 @@ export default function GroupDetailsPage() {
                                     >Update</button>
                                     <OpenModalButton
                                         buttonText={"Delete"}
-                                        modalComponent={<DeleteGroupModal />}
-                                    // onModalClose
+                                        modalComponent={
+                                            <DeleteGroupModal
+                                                navigateOnDelete={navigateOnDelete}
+                                                groupId={groupId}
+                                            />
+                                        }
                                     />
                                 </div>}
                             </div>
