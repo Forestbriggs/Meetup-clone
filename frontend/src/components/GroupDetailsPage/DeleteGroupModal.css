@@ -8,15 +8,15 @@
     align-items: center;
     gap: 10px;
 
-    h1 {
+    :is(h1) {
         margin-bottom: 2px;
     }
 
-    p {
+    :is(p) {
         margin-top: 2px;
     }
 
-    button {
+    :is(button) {
         font-size: large;
         font-weight: bold;
         padding: 10px 50px;
@@ -26,20 +26,20 @@
         width: 90%;
     }
 
-    .confirm {
+    :is(.confirm) {
         background-color: #af0837;
     }
 
-    .confirm:hover {
+    :is(.confirm:hover) {
         background-color: #870020;
     }
 
-    .no {
+    :is(.no) {
         background-color: #404040;
         margin-bottom: 20px;
     }
 
-    .no:hover {
+    :is(.no:hover) {
         background-color: #5a5959;
     }
 }
@@ -48,7 +48,7 @@
     #DeleteGroupModal {
         background-color: lightgray;
 
-        button {
+        :is(button) {
             color: white;
         }
     }
