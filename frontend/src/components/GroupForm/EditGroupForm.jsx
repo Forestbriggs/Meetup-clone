@@ -37,7 +37,7 @@ export default function EditGroupForm() {
         }
 
         return () => setIsLoaded(false);
-    }, [dispatch, groupId])
+    }, [dispatch, groupId, group])
 
     const handleSubmit = async (e) => {
         e.preventDefault();

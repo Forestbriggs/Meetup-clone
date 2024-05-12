@@ -2,7 +2,6 @@ import { useDispatch } from 'react-redux';
 import './DeleteGroupModal.css';
 import { useModal } from '../../context/Modal';
 import { deleteGroup } from '../../store/groups';
-import { useParams } from 'react-router-dom';
 
 export default function DeleteGroupModal({ navigateOnDelete, groupId }) {
     const dispatch = useDispatch();
