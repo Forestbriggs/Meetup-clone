@@ -54,7 +54,7 @@ export default function GroupForm({ formType, location, setLocation, name, setNa
             </ol>
             <textarea
                 name="description"
-                placeholder='Please write at least 30 characters'
+                placeholder='Please write at least 50 characters'
                 value={about}
                 onChange={(e => setAbout(e.target.value))}
             />
