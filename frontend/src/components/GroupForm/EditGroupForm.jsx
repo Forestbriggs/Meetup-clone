@@ -13,7 +13,7 @@ export default function EditGroupForm() {
     const group = useSelector(selectGroupById(groupId));
 
     const sessionUser = useSelector(state => state.session.user);
-    if (sessionUser.id !== group?.Organizer.id) navigate('/');
+    if (sessionUser === null || sessionUser?.id !== group?.Organizer.id) navigate('/');
 
     const city = group?.city;
     const state = group?.state;
