@@ -6,6 +6,8 @@ import { getGroupById, selectGroupById } from "../../store/groups";
 import './EventDetails.css';
 import { FaRegClock, FaMapPin } from "react-icons/fa6";
 import { AiOutlineDollarCircle } from "react-icons/ai";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DeleteEventModal from "./DeleteEventModal";
 
 export default function EventDetailPage() {
     const { eventId } = useParams();
@@ -75,8 +77,8 @@ export default function EventDetailPage() {
         alert('Feature coming soon ...');
     }
 
-    const handleDelete = () => {
-        alert('Feature coming soon...');
+    const navigateOnDelete = () => {
+        return navigate(`/groups/${group.id}`)
     }
 
     return (
@@ -131,10 +133,18 @@ export default function EventDetailPage() {
                                                 <div id="manage-event-buttons">
                                                     <button
                                                         onClick={handleUpdate}
-                                                    >Update</button>
-                                                    <button
-                                                        onClick={handleDelete}
-                                                    >Delete</button>
+                                                    >
+                                                        Update
+                                                    </button>
+                                                    <OpenModalButton
+                                                        buttonText={"Delete"}
+                                                        modalComponent={
+                                                            <DeleteEventModal
+                                                                navigateOnDelete={navigateOnDelete}
+                                                                eventId={eventId}
+                                                            />
+                                                        }
+                                                    />
                                                 </div>
                                             }
                                         </div>

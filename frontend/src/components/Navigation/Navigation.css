@@ -99,7 +99,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
-    width: 150px;
+    width: clamp(10vw, 150px, 20vw);
     right: 15px;
     top: 70px
 }

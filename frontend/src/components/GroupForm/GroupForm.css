@@ -16,7 +16,7 @@
     padding-left: 16px;
 }
 
-.form-container textarea {
+textarea {
     height: 200px;
     width: clamp(400px, 20vw, 90vw);
     background-color: #080808;

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function EventCard({ event }) {
     const {
-        id, name, type, startDate, previewImage, Venue, description } = event;
+        id, name, type, startDate, previewImage, Group, Venue, description } = event;
 
     const navigate = useNavigate();
 
@@ -21,7 +21,9 @@ export default function EventCard({ event }) {
                 <div className="event-card__details">
                     <p>{date} <span>•</span> {time}</p>
                     <h3>{name}</h3>
-                    <p>{type === 'Online' ? 'Online' : `${Venue.city}, ${Venue.state}`}</p>
+                    <p>{type === 'Online' ? 'Online' :
+                        Venue !== null ? `${Venue?.city}, ${Venue.state}` :
+                            `${Group?.city}, ${Group?.state}`} </p>
                 </div>
             </div>
             <div className="event-card__lower">

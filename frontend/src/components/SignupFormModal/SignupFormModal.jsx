@@ -4,7 +4,7 @@ import './SignupFormPage.css';
 import { signup } from '../../store/session';
 import { useModal } from '../../context/Modal';
 
-export default function SignupFormModal() {
+export default function SignupFormModal({ navigateOnSignup }) {
     const dispatch = useDispatch();
 
     const [firstName, setFirstName] = useState('');
@@ -34,13 +34,15 @@ export default function SignupFormModal() {
             email,
             password
         }))
-            .then(closeModal)
+            .then(() => {
+                closeModal();
+                return navigateOnSignup();
+            })
             .catch(
                 async (res) => {
                     const data = await res.json();
                     if (data?.errors) setErrors(data.errors);
-                }
-            )
+                });
     }
 
     return (

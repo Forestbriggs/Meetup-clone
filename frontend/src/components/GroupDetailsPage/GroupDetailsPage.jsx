@@ -72,7 +72,7 @@ export default function GroupDetailsPage() {
     }
 
     const handleCreateEventClick = () => {
-        alert('Feature coming soon')
+        navigate('events/new');
     }
 
     const handleUpdate = () => {
