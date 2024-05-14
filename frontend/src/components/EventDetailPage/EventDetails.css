@@ -40,6 +40,10 @@
     cursor: pointer;
 }
 
+.mini-group-card:hover {
+    background-color: #010101;
+}
+
 #event-info-card {
     background-color: #141414;
     border: 1px solid grey;
@@ -86,6 +90,10 @@
     .mini-group-card,
     #event-info-card {
         background-color: rgb(226, 226, 226);
+    }
+
+    .mini-group-card:hover {
+        background-color: lightgray;
     }
 
     #manage-event-buttons button {

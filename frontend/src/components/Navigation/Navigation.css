@@ -95,6 +95,7 @@
 
 .profile-dropdown {
     position: absolute;
+    background-color: #1F1F1F;
     list-style-type: none;
     padding-left: 10px;
     border: 1px solid grey;
@@ -106,9 +107,13 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
-    width: clamp(10vw, 150px, 20vw);
+    /* width: clamp(10vw, 150px, 20vw); */
     right: 15px;
     top: 70px
+}
+
+.profile-dropdown>li {
+    padding-right: 20px;
 }
 
 .hidden {
@@ -133,5 +138,9 @@
 
     .signup-button {
         color: white;
+    }
+
+    .profile-dropdown {
+        background-color: white;
     }
 }

@@ -103,6 +103,10 @@
     gap: 20px;
 }
 
+.event-card__container>*:hover {
+    background-color: #141414;
+}
+
 .event-card {
     border: 1px solid gray;
     border-radius: calc(.5rem);
@@ -127,5 +131,9 @@
 @media (prefers-color-scheme: light) {
     .group-header button {
         color: white;
+    }
+
+    .event-card__container>*:hover {
+        background-color: lightgray;
     }
 }
