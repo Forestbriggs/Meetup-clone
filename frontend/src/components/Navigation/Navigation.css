@@ -12,9 +12,16 @@
     padding-top: 12px;
 }
 
-.nav-container>span {
+.nav-container>.logo-container {
     font-size: 22px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-container img {
+    scale: 1.2;
 }
 
 .NavBar {

@@ -23,7 +23,10 @@ export default function Navigation() {
         <ul
             className='nav-container'
         >
-            <span onClick={handleNameClick}>Grand Line Gatherings</span>
+            <div className='logo-container' onClick={handleNameClick}>
+                <img src="/favicon-32x32.png" alt="GLG-Logo" />
+                <span>Grand Line Gatherings</span>
+            </div>
             <nav className='NavBar'>
                 {
                     //* Renders when not logged in

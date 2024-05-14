@@ -5,8 +5,7 @@
     margin-bottom: 40px;
 }
 
-/* .event-form-container input[type=number] {} */
-
+/** Makes number input look like normal input */
 .event-form-container input::-webkit-outer-spin-button,
 .event-form-container input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -16,4 +15,10 @@
 .event-form-container input[type=number] {
     appearance: textfield;
     -moz-appearance: textfield;
+}
+
+@media (prefers-color-scheme: light) {
+    .event-form-container textarea {
+        background-color: white;
+    }
 }
