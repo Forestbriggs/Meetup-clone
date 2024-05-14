@@ -1,7 +1,6 @@
 export default function EventForm({ name, setName, type, setType, price,
     setPrice, capacity, setCapacity, startDate, setStartDate, endDate,
-    setEndDate, imageUrl, setImageUrl, venueId, setVenueId,
-    description, setDescription, errors }) {
+    setEndDate, imageUrl, setImageUrl, description, setDescription, errors }) {
 
     return (
         <>
