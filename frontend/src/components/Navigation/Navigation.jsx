@@ -15,7 +15,7 @@ export default function Navigation() {
         return navigate('/')
     }
 
-    const navigateOnLogin = () => {
+    const navigateHome = () => {
         navigate('/');
     }
 
@@ -31,11 +31,11 @@ export default function Navigation() {
                 {!sessionUser && <>
                     <OpenModalButton
                         buttonText={"Log In"}
-                        modalComponent={<LoginFormModal navigateOnLogin={navigateOnLogin} />}
+                        modalComponent={<LoginFormModal navigateOnLogin={navigateHome} />}
                     />
                     <OpenModalButton
                         buttonText="Sign Up"
-                        modalComponent={<SignupFormModal />}
+                        modalComponent={<SignupFormModal navigateOnSignup={navigateHome} />}
                     />
                 </>}
 

@@ -100,7 +100,7 @@ export const createGroupImage = (groupId, payload) => async dispatch => {
 
     const data = await res.json();
     dispatch(setGroupImage(groupId, data));
-    return res;
+    return data;
 }
 
 export const deleteGroup = (groupId) => async dispatch => {

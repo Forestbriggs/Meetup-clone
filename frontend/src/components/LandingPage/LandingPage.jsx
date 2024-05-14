@@ -3,11 +3,18 @@ import LandingPageCard from './LandingPageCard';
 import OpenModalButton from '../OpenModalButton';
 import SignupFormModal from '../SignupFormModal';
 import './LandingPage.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function LandingPage() {
     const sessionUser = useSelector(state => state.session.user);
     let disabled = false;
     if (sessionUser === null) disabled = true
+
+    const navigate = useNavigate();
+    const navigateHome = () => {
+        return navigate('/')
+    }
+
     return (
         <div id='LandingPage'>
             <div id="landing-page__top">
@@ -42,7 +49,7 @@ export default function LandingPage() {
                         disabled={disabled}
                     />
                 </div>
-                {!sessionUser && <OpenModalButton modalComponent={<SignupFormModal />} buttonText="Join Grand Line Gatherings" />}
+                {!sessionUser && <OpenModalButton modalComponent={<SignupFormModal navigateOnSignup={navigateHome} />} buttonText="Join Grand Line Gatherings" />}
             </div>
         </div>
     )

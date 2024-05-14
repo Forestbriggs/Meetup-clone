@@ -4,3 +4,16 @@
     margin: 0 auto;
     margin-bottom: 40px;
 }
+
+/* .event-form-container input[type=number] {} */
+
+.event-form-container input::-webkit-outer-spin-button,
+.event-form-container input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.event-form-container input[type=number] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
