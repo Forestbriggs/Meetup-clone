@@ -127,7 +127,6 @@ const eventsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_EVENTS: {
             const newState = { byId: { ...state.byId }, allIds: [...state.allIds] }
-            console.log(newState)
 
             action.payload.Events.forEach(event => {
                 newState.byId[event.id] = { ...newState.byId[event.id], ...event };

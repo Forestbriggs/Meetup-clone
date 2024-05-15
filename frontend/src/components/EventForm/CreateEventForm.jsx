@@ -85,7 +85,6 @@ export default function CreateEventForm() {
             navigate(`/events/${data.id}`);
         }).catch(
             async (res) => {
-                console.log(res);
                 const data = await res.json();
                 if (data?.errors) setErrors(data.errors);
             }
