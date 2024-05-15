@@ -23,7 +23,9 @@ const validateGroupBody = [
     check('about')
         .exists({ checkFalsy: true })
         .isLength({ min: 50 })
-        .withMessage('About must be 50 characters or more'),
+        .withMessage('Description must be 50 characters or more')
+        .isLength({ max: 255 })
+        .withMessage('Description must be less than 255 characters'),
     check('type')
         .exists({ checkFalsy: true })
         .isIn(['Online', 'In person'])
@@ -74,12 +76,12 @@ const validateEventBody = [
         .withMessage('Type must be Online or In person'),
     check('capacity')
         .exists({ checkFalsy: true })
-        .isInt(true)
-        .withMessage('Capacity must be an integer'),
+        .isInt({ min: 1 })
+        .withMessage('Capacity must be greater than 0'),
     check('price')
         .exists()
         .isFloat({ min: 0 })
-        .withMessage('Price is invalid'),
+        .withMessage('Price must be minimum of 0'),
     check('description')
         .exists({ checkFalsy: true })
         .withMessage('Description is required'),
@@ -95,7 +97,7 @@ const validateEventBody = [
             }
             return true;
         })
-        .withMessage('End date is less than start date'),
+        .withMessage('End date is before start date'),
     handleValidationErrors
 ];
 
