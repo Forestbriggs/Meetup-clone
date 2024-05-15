@@ -12,7 +12,7 @@ export async function csrfFetch(url, options = {}) {
     if (options.method.toUpperCase() !== 'GET') {
         options.headers['Content-Type'] =
             options.headers['Content-Type'] || 'application/json';
-        options.headers['Xsrf-Token'] = Cookies.get('XSRF_TOKEN');
+        options.headers['Xsrf-Token'] = Cookies.get('XSRF-TOKEN');
     }
 
     //* call the default window's fetch with the url and the options passed in
