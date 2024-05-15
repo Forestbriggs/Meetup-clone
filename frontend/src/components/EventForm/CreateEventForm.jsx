@@ -8,6 +8,7 @@ import { createEvent, createEventImage } from "../../store/events";
 
 export default function CreateEventForm() {
     const { groupId } = useParams();
+    const sessionUser = useSelector(state => state.session.user);
     const [isLoaded, setIsLoaded] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -27,16 +28,22 @@ export default function CreateEventForm() {
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
+        if (sessionUser === null) navigate('/');
+
+        if (isLoaded && sessionUser?.id !== group?.Organizer.id) {
+            navigate('/');
+        }
+
         if (typeof group !== 'object') {
             dispatch(getGroupById(groupId)).then(() => {
                 setIsLoaded(true);
-            })
+            }).catch(() => navigate('/error-page'))
         } else {
             setIsLoaded(true);
         }
 
         return () => setIsLoaded(false);
-    }, [dispatch, groupId, group])
+    }, [dispatch, groupId, group, navigate, isLoaded, sessionUser])
 
     const handleSubmit = (e) => {
         e.preventDefault();

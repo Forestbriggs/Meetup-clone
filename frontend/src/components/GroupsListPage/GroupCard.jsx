@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 
 export default function GroupCard({ group }) {
     const navigate = useNavigate();
+    const [imgSrc, setImgSrc] = useState(group.previewImage ? `${group.previewImage}` : '/images/background.webp')
 
     const handleClick = () => {
         navigate(`${group.id}`)
@@ -11,10 +13,12 @@ export default function GroupCard({ group }) {
         <div className="card" onClick={handleClick}>
             {group.previewImage &&
                 <img
-                    src={group.previewImage ? `${group.previewImage}` : '/images/placeholder.jpeg'}
+                    src={imgSrc}
                     height='100px'
                     width='180px'
-                    alt="group-image" />
+                    alt="group-image"
+                    onError={() => (setImgSrc('/images/background.webp'))}
+                />
             }
             <div className="card-content">
                 <h2>{group.name}</h2>

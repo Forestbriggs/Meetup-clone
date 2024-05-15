@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function EventCard({ event }) {
@@ -5,6 +6,7 @@ export default function EventCard({ event }) {
         id, name, type, startDate, previewImage, Group, Venue, description } = event;
 
     const navigate = useNavigate();
+    const [imgSrc, setImgSrc] = useState(previewImage ? `${previewImage}` : `/images/background.webp`)
 
     const split = startDate.split(' ')
     const date = split[0].slice(0, -1) //* Cut comma off end
@@ -17,7 +19,11 @@ export default function EventCard({ event }) {
     return (
         <div onClick={handleClick} className="event-card">
             <div className="event-card__upper">
-                <img src={previewImage ? `${previewImage}` : `/images/placeholder.jpeg`} alt="event-image" />
+                <img
+                    src={imgSrc}
+                    alt="event-image"
+                    onError={() => setImgSrc('/images/background.webp')}
+                />
                 <div className="event-card__details">
                     <p>{date} <span>•</span> {time}</p>
                     <h3>{name}</h3>

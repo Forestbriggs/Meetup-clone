@@ -10,7 +10,6 @@ export default function EventListPage() {
 
     const { upcoming, past } = useSelector(selectOrderedEventsArray);
     const events = upcoming.concat(past);
-    // console.log(events);
     useEffect(() => {
         dispatch(getAllEvents()).then(() => setIsLoaded(true));
     }, [dispatch])
