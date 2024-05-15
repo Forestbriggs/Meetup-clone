@@ -10,6 +10,7 @@ import EventDetailPage from "./components/EventDetailPage";
 import CreateGroupForm from "./components/GroupForm";
 import EditGroupForm from "./components/GroupForm/EditGroupForm";
 import CreateEventForm from "./components/EventForm/CreateEventForm";
+import ErrorPage from './components/ErrorPage';
 
 function Layout() {
     const dispatch = useDispatch();
@@ -85,8 +86,12 @@ const router = createBrowserRouter([
                 ]
             },
             {
+                path: 'error-page',
+                element: <ErrorPage />
+            },
+            {
                 path: '*',
-                element: <h1>Page Not Found</h1>
+                element: <ErrorPage />
             }
         ]
     }

@@ -1,0 +1,15 @@
+#error-page {
+    text-align: center;
+}
+
+#error-page>button {
+    background-color: #1C656E;
+    border: none;
+    border-radius: .5rem;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#error-page>button:hover {
+    background-color: rgb(37, 134, 149);
+}

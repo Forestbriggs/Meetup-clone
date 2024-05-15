@@ -21,13 +21,14 @@ export default function EventDetailPage() {
         dispatch(getGroupById(event?.groupId))
     }
 
+
     useEffect(() => {
         dispatch(getEventDetailsById(eventId)).then(() => {
             setIsLoaded(true);
-        })
+        }).catch(() => navigate('/error-page'))
 
         return () => setIsLoaded(false);
-    }, [dispatch, eventId])
+    }, [dispatch, eventId, navigate])
 
     let eventPreviewImg;
     if (event?.EventImages) {
@@ -48,6 +49,9 @@ export default function EventDetailPage() {
             }
         })
     }
+    const [imgSrc, setImgSrc] = useState(event?.previewImage ? `${event.previewImage}` :
+        eventPreviewImg ? `${eventPreviewImg}` :
+            '/images/background.webp')
 
     let splitStart;
     let startDate;
@@ -95,9 +99,11 @@ export default function EventDetailPage() {
                             <h1>{event.name}</h1>
                             <p>Hosted by: {group?.Organizer?.firstName} {group?.Organizer?.lastName}</p>
                             <div id="event-header">
-                                <img src={event.previewImage ? `${event.previewImage}` :
-                                    eventPreviewImg ? `${eventPreviewImg}` :
-                                        '/images/placeholder.jpeg'} alt="event-image" />
+                                <img
+                                    src={imgSrc}
+                                    alt="event-image"
+                                    onError={() => setImgSrc('/images/background.webp')}
+                                />
                                 <div>
                                     <div
                                         className="mini-group-card"

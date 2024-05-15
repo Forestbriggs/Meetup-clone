@@ -34,13 +34,13 @@ export default function EditGroupForm() {
                 setType(data.type);
                 setIsPrivate(data.private);
                 setIsLoaded(true);
-            })
+            }).catch(() => navigate('/error-page'))
         } else {
             setIsLoaded(true)
         }
 
         return () => setIsLoaded(false);
-    }, [dispatch, groupId, group])
+    }, [dispatch, groupId, group, navigate])
 
     const handleSubmit = async (e) => {
         e.preventDefault();

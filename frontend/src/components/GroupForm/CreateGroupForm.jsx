@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { createGroup, createGroupImage } from '../../store/groups';
 import { useNavigate } from 'react-router-dom';
 import GroupForm from "./GroupForm";
@@ -15,6 +15,13 @@ export default function CreateGroupForm() {
     const [isPrivate, setIsPrivate] = useState('null');
     const [imageUrl, setImageUrl] = useState('');
     const [errors, setErrors] = useState({});
+    const sessionUser = useSelector(state => state.session.user);
+
+    useEffect(() => {
+        if (sessionUser === null) {
+            navigate('/')
+        }
+    }, [navigate, sessionUser])
 
     const handleSubmit = async (e) => {
         e.preventDefault();

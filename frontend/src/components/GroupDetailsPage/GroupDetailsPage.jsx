@@ -56,10 +56,12 @@ export default function GroupDetailsPage() {
             dispatch(getGroupEventsById(groupId));
         }).then(() => {
             setIsLoaded(true);
+        }).catch(() => {
+            navigate('/error-page')
         })
 
         return () => setIsLoaded(false);
-    }, [dispatch, groupId])
+    }, [dispatch, groupId, navigate])
 
 
     //* Click events
@@ -90,7 +92,7 @@ export default function GroupDetailsPage() {
                     <div id='group-header__container'>
                         <div className="back-tracker" onClick={handleBackClick}><span>{'< '}</span><a>Groups</a></div>
                         <div className="group-header">
-                            <img src={group.previewImage ? `${group.previewImage}` : previewImg ? `${previewImg}` : '/images/placeholder.jpeg'} alt="group-image" />
+                            <img src={group.previewImage ? `${group.previewImage}` : previewImg ? `${previewImg}` : '/images/background.webp'} alt="group-image" />
                             <div>
                                 <div>
                                     <h1>{group.name}</h1>
