@@ -111,7 +111,7 @@ export default function EventDetailPage() {
                                     >
                                         <img src={group.previewImage ? `${group.previewImage}` :
                                             groupPreviewImg ? `${groupPreviewImg}` :
-                                                '/images/placeholder.jpeg'} alt="" />
+                                                '/images/background.webp'} alt="" />
                                         <div>
                                             <h3>{group.name}</h3>
                                             <p>{group.private ? 'Private' : 'Public'}</p>
