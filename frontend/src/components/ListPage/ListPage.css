@@ -1,5 +1,4 @@
 #ListPage {
-    /* border: 1px solid red; */
     width: clamp(400px, 800px, 50vw);
     margin: 0 auto;
 }

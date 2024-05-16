@@ -1,7 +1,10 @@
 .card-container {
     --card-width: clamp(400px, 800px, 50vw);
     width: var(--card-width);
+    overflow-wrap: break-word;
 }
+
+
 
 /** Override css rules defined for GroupDetailPage EventCards */
 .card-container>* {
