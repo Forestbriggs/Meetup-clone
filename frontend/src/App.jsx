@@ -11,6 +11,7 @@ import CreateGroupForm from "./components/GroupForm";
 import EditGroupForm from "./components/GroupForm/EditGroupForm";
 import CreateEventForm from "./components/EventForm/CreateEventForm";
 import ErrorPage from './components/ErrorPage';
+import Footer from "./components/Footer/Footer";
 
 function Layout() {
     const dispatch = useDispatch();
@@ -23,8 +24,11 @@ function Layout() {
     }, [dispatch]);
 
     const content = <>
-        <Navigation />
-        <Outlet />
+        <div id="main-container">
+            <Navigation />
+            <Outlet />
+        </div>
+        <Footer />
     </>
 
     return (
