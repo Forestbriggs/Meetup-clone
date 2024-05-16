@@ -5,6 +5,7 @@
     margin-top: 20px;
     grid-template-columns: 1fr 1fr;
     gap: 2vw;
+    align-items: center;
 }
 
 #landing-page__top h1 {
