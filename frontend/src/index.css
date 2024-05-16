@@ -11,6 +11,12 @@
     -webkit-text-size-adjust: 100%;
 }
 
+/** Keeps Footer at bottom of page regardless of content
+**  without adding unnecessary height */
+#main-container {
+    min-height: calc(100vh - 100px);
+}
+
 @media (prefers-color-scheme: light) {
     :root {
         color: black;
