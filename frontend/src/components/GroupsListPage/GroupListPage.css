@@ -35,6 +35,13 @@
 
 .card-content>h2+p+p {
     font-size: 15px;
+    width: clamp(400px, 800px, 50vw);
+    overflow-wrap: break-word;
+}
+
+.card>img+div>h2+p+p {
+    /* border: 1px solid red; */
+    width: calc(clamp(400px, 800px, 50vw) - 180px - 20px);
 }
 
 .card-content>div {

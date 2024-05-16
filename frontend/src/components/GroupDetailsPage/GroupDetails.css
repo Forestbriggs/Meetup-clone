@@ -97,6 +97,11 @@
     margin-bottom: 40px;
 }
 
+.group-bottom__container {
+    width: clamp(600px, 1000px, 90vw);
+    overflow-wrap: break-word;
+}
+
 .event-card__container {
     display: flex;
     flex-direction: column;

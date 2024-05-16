@@ -20,7 +20,7 @@ export default function LandingPage() {
             <div id="landing-page__top">
                 <div>
                     <h1>The people platform — Where interests become friendships</h1>
-                    <p>Embark on an adventure with fellow One Piece fans at Grand Line Gatherings, the ultimate community for meetups and events inspired by the legendary world of One Piece! Whether you&apos;re a seasoned pirate or just setting sail, our platform is designed to bring enthusiasts together to share their passion, forge new friendships, and create unforgettable memories!</p>
+                    <p id='landing-page__description'>Embark on an adventure with fellow One Piece fans at Grand Line Gatherings, the ultimate community for meetups and events inspired by the legendary world of One Piece! Whether you&apos;re a seasoned pirate or just setting sail, our platform is designed to bring enthusiasts together to share their passion, forge new friendships, and create unforgettable memories!</p>
                 </div>
                 <img className='main-image' src="/images/GLG-banner.webp" alt="GLG-banner" />
 

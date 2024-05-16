@@ -48,7 +48,8 @@ export default function EditGroupForm() {
         const newErrors = {};
         if (location.length === 0) newErrors.city = 'Location is required';
         if (name.length === 0) newErrors.name = 'Name is required';
-        if (about.length < 30) newErrors.about = 'Description must be at least 30 characters long';
+        if (about.length < 50) newErrors.about = 'Description must be at least 50 characters long';
+        if (about.length > 255) newErrors.about - 'Description must be less than 255 characters';
         if (type === 'null') newErrors.type = 'Group Type is required';
         if (isPrivate === 'null') newErrors.private = 'Visibility Type is required';
         // if (!imageUrl.endsWith('.png') &&
@@ -77,7 +78,8 @@ export default function EditGroupForm() {
         return dispatch(editGroup(groupId, payload)).then((data) => {
             return navigate(`/groups/${data.id}`);
         }).catch(
-            async (data) => {
+            async (res) => {
+                const data = await res.json();
                 if (data?.errors) setErrors(data.errors);
             }
         )

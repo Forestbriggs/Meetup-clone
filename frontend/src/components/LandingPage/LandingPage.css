@@ -5,10 +5,16 @@
     margin-top: 20px;
     grid-template-columns: 1fr 1fr;
     gap: 2vw;
+    align-items: center;
 }
 
 #landing-page__top h1 {
-    font-size: 55px;
+    font-size: 48px;
+    margin-top: 20px;
+}
+
+#landing-page__description {
+    margin-bottom: 20px;
 }
 
 .main-image {
