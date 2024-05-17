@@ -76,8 +76,17 @@
     gap: 10px;
 }
 
-#manage-event-buttons>* {
+#manage-event-buttons>button {
     cursor: pointer;
+    padding: 8px 12px;
+    border: none;
+    border-radius: .5rem;
+    background-color: gray;
+
+}
+
+#manage-event-buttons>button:hover {
+    background-color: rgb(109, 108, 108);
 }
 
 #event-header>div img {
@@ -103,10 +112,6 @@
 
     #manage-event-buttons button {
         color: white;
-        background-color: gray;
-        border: none;
-        border-radius: .5rem;
-        padding: 5px 10px;
     }
 
     #manage-event-buttons button:hover {
