@@ -66,7 +66,7 @@ export default function EventDetailPage() {
         startTime = splitStart[1].slice(0, -3) + ' ' + splitStart[2];
         splitEnd = event?.endDate.split(' ');
         endDate = splitEnd[0].slice(0, -1);
-        endTime = splitStart[1].slice(0, -3) + ' ' + splitEnd[2];
+        endTime = splitEnd[1].slice(0, -3) + ' ' + splitEnd[2];
     }
 
     const handleBackClick = () => {
