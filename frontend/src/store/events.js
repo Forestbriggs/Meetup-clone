@@ -5,7 +5,8 @@ import { csrfFetch } from "./csrf";
 const SET_EVENTS = 'events/setEvents';
 const SET_EVENT_DETAILS = 'events/setEventDetails';
 const SET_EVENT_IMAGE = 'events/setEventImage';
-const REMOVE_EVENT = 'events/removeEvent';
+const REMOVE_EVENT_BY_EVENT_ID = 'events/removeEventByEventId';
+const REMOVE_EVENTS_BY_GROUP_ID = 'events/removeEventsByGroupId'
 
 //* Normal action creators
 const setEvents = (payload) => {
@@ -30,10 +31,17 @@ const setEventImage = (eventId, payload) => {
     }
 }
 
-const removeEvent = (eventId) => {
+const removeEventByEventId = (eventId) => {
     return {
-        type: REMOVE_EVENT,
+        type: REMOVE_EVENT_BY_EVENT_ID,
         eventId
+    }
+}
+
+export const removeEventsByGroupId = (groupId) => {
+    return {
+        type: REMOVE_EVENTS_BY_GROUP_ID,
+        groupId
     }
 }
 
@@ -81,7 +89,7 @@ export const deleteEvent = (eventId) => async dispatch => {
         method: 'DELETE'
     })
     if (res.ok) {
-        dispatch(removeEvent(eventId));
+        dispatch(removeEventByEventId(eventId));
     }
     return res;
 }
@@ -159,7 +167,7 @@ const eventsReducer = (state = initialState, action) => {
             return newState;
         }
 
-        case REMOVE_EVENT: {
+        case REMOVE_EVENT_BY_EVENT_ID: {
             const newState = {
                 byId: { ...state.byId },
                 allIds: [...state.allIds]
@@ -167,6 +175,23 @@ const eventsReducer = (state = initialState, action) => {
             delete newState.byId[action.eventId];
             const index = newState.allIds.indexOf(action.eventId);
             newState.allIds.splice(index, 1);
+            return newState;
+        }
+
+        case REMOVE_EVENTS_BY_GROUP_ID: {
+            const newState = {
+                byId: { ...state.byId },
+                allIds: [...state.allIds]
+            }
+            // console.log(newState.byId)
+            for (let key in newState.byId) {
+                const currEvent = newState.byId[key]
+                if (currEvent.groupId == action.groupId) {
+                    const index = newState.allIds.indexOf(key)
+                    newState.allIds.splice(index, 1)
+                    delete newState.byId[key]
+                }
+            }
             return newState;
         }
 

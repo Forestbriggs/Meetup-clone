@@ -1,5 +1,6 @@
 import { csrfFetch } from "./csrf";
 import { createSelector } from 'reselect';
+import { removeEventsByGroupId } from "./events";
 
 //* Constants to avoid typos in action type
 const SET_GROUPS = 'groups/setGroups';
@@ -110,6 +111,7 @@ export const deleteGroup = (groupId) => async dispatch => {
 
     if (res.ok) {
         dispatch(removeGroup(groupId));
+        dispatch(removeEventsByGroupId(groupId))
     }
     return res;
 }
